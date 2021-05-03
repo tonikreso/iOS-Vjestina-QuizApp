@@ -11,6 +11,8 @@ import PureLayout
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    private var router: AppRouterProtocol!
+    
     private var nameLabel: UILabel!
     private var emailTextField: MyTextField!
     private var passwordTextField: UITextField!
@@ -22,6 +24,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     private var nameLabelFont = "HelveticaNeue-Bold"
     private var gradientColor1 = UIColor(red: 58/255, green: 55/255, blue: 129/255, alpha: 1)
     private var gradientColor2 = UIColor(red: 101/255, green: 73/255, blue: 154/255, alpha: 1)
+    
+    convenience init(router: AppRouterProtocol) {
+        self.init()
+        self.router = router
+    }
      
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,7 +149,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print(emailTextField.text!)
         print(passwordTextField.text!)
         if case .success  = loginStatus {
-            print("Uspioo")
+            router.showQuizzesViewController()
         }
         if case .error(400, "Bad Request") = loginStatus {
             self.present(alert, animated: true, completion:{
