@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import PureLayout
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: SharedViewController, UITextFieldDelegate {
     
     private var router: AppRouterProtocol!
     
@@ -18,12 +18,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     private var passwordTextField: UITextField!
     private var button: UIButton!
     private var passwordButton: UIButton!
-    private var gradientLayer: CAGradientLayer!
     private var alert: UIAlertController!
     
-    private var nameLabelFont = "HelveticaNeue-Bold"
-    private var gradientColor1 = UIColor(red: 58/255, green: 55/255, blue: 129/255, alpha: 1)
-    private var gradientColor2 = UIColor(red: 101/255, green: 73/255, blue: 154/255, alpha: 1)
+    private let nameLabelFont = "HelveticaNeue-Bold"
     
     convenience init(router: AppRouterProtocol) {
         self.init()
@@ -57,15 +54,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button = UIButton()
         view.addSubview(button)
         
-        gradientLayer = CAGradientLayer()
-        view.layer.insertSublayer(gradientLayer, at: 0)
-        
         alert = UIAlertController(title: "Login Error", message: "Incorrect username or password. Try again.", preferredStyle: .alert)
     }
     
     private func styleViews() {
-        gradientLayer.colors = [gradientColor1.cgColor, gradientColor2.cgColor]
-        
         nameLabel.text = "PopQuiz"
         nameLabel.font = UIFont(name: nameLabelFont, size: 30.0)
         nameLabel.textColor = .white
@@ -86,7 +78,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button.backgroundColor = .white
         button.isEnabled = false
         button.alpha = 0.5
-        button.setAttributedTitle(NSAttributedString(string: "Login", attributes: [NSAttributedString.Key.foregroundColor: gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "Login", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
         button.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
         
     }
@@ -137,11 +129,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             passwordButton.setImage(UIImage(named: "ic_eye_closed"), for: .normal)
         }
-    }
-    override func viewDidLayoutSubviews() {
-        gradientLayer.frame = view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0, y: 1)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
     }
     
     @objc func loginAction(sender: UIButton!) {

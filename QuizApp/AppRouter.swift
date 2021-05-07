@@ -11,6 +11,9 @@ import UIKit
 protocol AppRouterProtocol {
     func setStartScreen(in window: UIWindow?)
     func showQuizzesViewController()
+    func showLoginViewController()
+    func showQuizViewController(questions: [Question])
+    func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int)
 }
 
 class AppRouter: AppRouterProtocol {
@@ -21,7 +24,7 @@ class AppRouter: AppRouterProtocol {
     }
     
     func setStartScreen(in window: UIWindow?) {
-        let vc = LoginViewController(router: self)
+        let vc = QuizzesViewController(router: self)
         
         navigationController.pushViewController(vc, animated: false)
         
@@ -30,10 +33,35 @@ class AppRouter: AppRouterProtocol {
     }
     
     func showQuizzesViewController() {
-        let vc = QuizzesViewController(router: self)
+        let quizzesVC = QuizzesViewController(router: self)
+        quizzesVC.title = "Quizzes"
+        let settingsVC = SettingViewController(router: self)
+        settingsVC.title = "Settings"
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [quizzesVC, settingsVC]
+        
+        navigationController.viewControllers.insert(tabBarController, at: 0)
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func showLoginViewController() {
+        let vc = LoginViewController(router: self)
         
         navigationController.viewControllers.insert(vc, at: 0)
-        navigationController.popViewController(animated: true)
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func showQuizViewController(questions: [Question]) {
+        let vc = QuizViewController(router: self, questions: questions)
+        
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int) {
+        let vc = QuizResultViewController(router: self, numberOfCorrect: numberOfCorrect, numberOfQuestions: numberOfQuestions)
+        
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 
