@@ -41,8 +41,10 @@ class QuizResultViewController: SharedViewController, UITextFieldDelegate {
     }
     
     private func styleViews() {
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        
         resultLabel.text = "\(numberOfCorrect!)/\(numberOfQuestions!)"
-        resultLabel.font = UIFont.systemFont(ofSize: 100, weight: UIFont.Weight(rawValue: 2))
+        resultLabel.font = UIFont.systemFont(ofSize: 120, weight: UIFont.Weight(rawValue: 1))
         resultLabel.textColor = .white
         
         finishButton.backgroundColor = .white
@@ -53,7 +55,9 @@ class QuizResultViewController: SharedViewController, UITextFieldDelegate {
     }
     
     private func defineLayoutForViews() {
-        resultLabel.autoCenterInSuperview()
+        resultLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+        resultLabel.autoAlignAxis(.horizontal, toSameAxisOf: resultLabel.superview!, withOffset: -50)
+        
         
         finishButton.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 15)
         finishButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)

@@ -14,6 +14,8 @@ protocol AppRouterProtocol {
     func showLoginViewController()
     func showQuizViewController(questions: [Question])
     func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int)
+    func showFirstQuestion()
+    func showNextQuestion()
 }
 
 class AppRouter: AppRouterProtocol {
@@ -24,7 +26,7 @@ class AppRouter: AppRouterProtocol {
     }
     
     func setStartScreen(in window: UIWindow?) {
-        let vc = QuizzesViewController(router: self)
+        let vc = LoginViewController(router: self)
         
         navigationController.pushViewController(vc, animated: false)
         
@@ -53,8 +55,26 @@ class AppRouter: AppRouterProtocol {
     }
     
     func showQuizViewController(questions: [Question]) {
-        let vc = QuizViewController(router: self, questions: questions)
+        let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        vc.setRouter(router: self)
         
+        let stackView = UIStackView()
+        stackView.spacing = 5
+        stackView.distribution = .fillEqually
+        
+        var controllers = [UIViewController]()
+        for question in questions {
+            let progressBar = UIProgressView()
+            progressBar.trackTintColor = GlobalConstants.answerColor
+            progressBar.progressTintColor = .white
+            progressBar.layer.cornerRadius = 4
+            stackView.addArrangedSubview(progressBar)
+            
+            let tmpVC = QuizViewController(pageController: vc, question: question, stackView: stackView)
+            controllers.append(tmpVC)
+        }
+        
+        vc.addControllers(controllers: controllers)
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -62,6 +82,13 @@ class AppRouter: AppRouterProtocol {
         let vc = QuizResultViewController(router: self, numberOfCorrect: numberOfCorrect, numberOfQuestions: numberOfQuestions)
         
         navigationController.pushViewController(vc, animated: true)
+    }
+    func showFirstQuestion() {
+        
+    }
+    
+    func showNextQuestion() {
+        
     }
 }
 

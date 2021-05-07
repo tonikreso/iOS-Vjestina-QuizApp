@@ -10,26 +10,23 @@ import UIKit
 
 class QuizViewController: SharedViewController, UITextFieldDelegate {
     
-    private var router: AppRouterProtocol!
-    private var questions: [Question]!
-    private var questionIndex: Int!
-    private var answerButtonArray: [UIButton]!
-    private var numberOfCorrect: Int!
+    private var pageController: PageViewController!
+    private var question: Question!
     
-    private var questionNumberLabel: UILabel!
-    private var questionTracker: UIProgressView!
+    private var numberOfQuestionLabel: UILabel!
+    private var stackView: UIStackView!
+    private var answerButtonArray: [UIButton]!
     private var questionLabel: UILabel!
     private var answer1: UIButton!
     private var answer2: UIButton!
     private var answer3: UIButton!
     private var answer4: UIButton!
     
-    convenience init(router: AppRouterProtocol, questions: [Question]) {
+    convenience init(pageController: PageViewController, question: Question, stackView: UIStackView) {
         self.init()
-        self.router = router
-        self.questions = questions
-        self.questionIndex = 0
-        self.numberOfCorrect = 0
+        self.pageController = pageController
+        self.question = question
+        self.stackView = stackView
     }
      
     override func viewDidLoad() {
@@ -40,11 +37,10 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
     }
     
     private func buildViews() {
-        questionNumberLabel = UILabel()
-        view.addSubview(questionNumberLabel)
+        numberOfQuestionLabel = UILabel()
+        view.addSubview(numberOfQuestionLabel)
         
-        questionTracker = UIProgressView()
-        view.addSubview(questionTracker)
+        view.addSubview(stackView)
         
         questionLabel = UILabel()
         view.addSubview(questionLabel)
@@ -62,7 +58,8 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
     }
     
     private func styleViews() {
-        questionNumberLabel.textColor = .white
+        numberOfQuestionLabel.text = "\(pageController.currentIndex + 1)/\(pageController.getNumberOfChildren())"
+        numberOfQuestionLabel.textColor = .white
         
         questionLabel.textColor = .white
         questionLabel.font = UIFont.boldSystemFont(ofSize: 23)
@@ -74,24 +71,28 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
             answer.contentHorizontalAlignment = .left
             answer.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
             answer.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+            answer.backgroundColor = GlobalConstants.answerColor
         }
         answer1.tag = 0
         answer2.tag = 1
         answer3.tag = 2
         answer4.tag = 3
         
-        showNextQuestion(index: questionIndex)
+        let tmpProgressView = stackView.subviews[pageController.currentIndex] as? UIProgressView
+        tmpProgressView?.setProgress(1, animated: false)
+        
+        showNextQuestion()
     }
     
     private func defineLayoutForViews() {
-        questionNumberLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 15)
-        questionNumberLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
+        numberOfQuestionLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 15)
+        numberOfQuestionLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
         
-        questionTracker.autoPinEdge(.top, to: .bottom, of: questionNumberLabel, withOffset: 10)
-        questionTracker.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
-        questionTracker.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
+        stackView.autoPinEdge(.top, to: .bottom, of: numberOfQuestionLabel, withOffset: 10)
+        stackView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
+        stackView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
         
-        questionLabel.autoPinEdge(.top, to: .bottom, of: questionTracker, withOffset: 40)
+        questionLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 25)
         questionLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
         questionLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
         
@@ -112,48 +113,38 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
         answer4.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
     }
     
-    private func showNextQuestion(index: Int) {
-        for answer in answerButtonArray {
-            answer.isEnabled = true
-            answer.backgroundColor = UIColor(red: 137/255, green: 123/255, blue: 178/255, alpha: 1)
-        }
-        questionNumberLabel.text = "\(index + 1)/\(questions.count)"
+    private func showNextQuestion() {
+        questionLabel.text = question.question
         
-        questionTracker.setProgress(Float(index + 1)/Float(questions.count), animated: true)
-        
-        questionLabel.text = questions[index].question
-        
-        answer1.setTitle(questions[index].answers[0], for: .normal)
-        answer2.setTitle(questions[index].answers[1], for: .normal)
-        answer3.setTitle(questions[index].answers[2], for: .normal)
-        answer4.setTitle(questions[index].answers[3], for: .normal)
+        answer1.setTitle(question.answers[0], for: .normal)
+        answer2.setTitle(question.answers[1], for: .normal)
+        answer3.setTitle(question.answers[2], for: .normal)
+        answer4.setTitle(question.answers[3], for: .normal)
     }
     
     @objc func checkCorrectAnswer(sender: UIButton!) {
         for answer in answerButtonArray {
             answer.isEnabled = false
         }
-        let correctIndex = questions[questionIndex].correctAnswer
+        
+        let tmpProgressView = stackView.subviews[pageController.currentIndex] as? UIProgressView
+        
+        var isCorrect = true
+        let correctIndex = question.correctAnswer
         answerButtonArray[correctIndex].backgroundColor = .systemGreen
+        
         
         if correctIndex != sender.tag {
             answerButtonArray[sender.tag].backgroundColor = .systemRed
+            isCorrect = false
+            tmpProgressView?.progressTintColor = .systemRed
         } else {
-            numberOfCorrect += 1
+            tmpProgressView?.progressTintColor = .systemGreen
         }
-        
-        questionIndex += 1
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            if self.questionIndex >= self.questions.count {
-                self.router.showQuizResultViewController(numberOfCorrect: self.numberOfCorrect, numberOfQuestions: self.questions.count)
-            } else {
-                self.showNextQuestion(index: self.questionIndex)
-            }
+            self.pageController.goToNext(isCorrect: isCorrect)
         }
-        
-        
-        
     }
     
 }

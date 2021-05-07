@@ -15,7 +15,7 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
     
     private var nameLabel: UILabel!
     private var emailTextField: MyTextField!
-    private var passwordTextField: UITextField!
+    private var passwordTextField: MyTextField!
     private var button: UIButton!
     private var passwordButton: UIButton!
     private var alert: UIAlertController!
@@ -62,11 +62,11 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
         nameLabel.font = UIFont(name: nameLabelFont, size: 30.0)
         nameLabel.textColor = .white
         
-        emailTextField.backgroundColor = UIColor(red: 137/255, green: 123/255, blue: 178/255, alpha: 1)
+        emailTextField.backgroundColor = GlobalConstants.answerColor
         emailTextField.textColor = .white
         emailTextField.keyboardType = UIKeyboardType.emailAddress
         
-        passwordTextField.backgroundColor = UIColor(red: 137/255, green: 123/255, blue: 178/255, alpha: 1)
+        passwordTextField.backgroundColor = GlobalConstants.answerColor
         passwordTextField.textColor = .white
         passwordTextField.isSecureTextEntry = true
         passwordTextField.rightViewMode = .whileEditing
@@ -80,6 +80,7 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
         button.alpha = 0.5
         button.setAttributedTitle(NSAttributedString(string: "Login", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
         button.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
+        button.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
         
     }
     
@@ -87,19 +88,19 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
         nameLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 20)
         nameLabel.autoAlignAxis(toSuperviewAxis: .vertical)
         
-        emailTextField.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
-        emailTextField.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 150)
-        emailTextField.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        emailTextField.autoPinEdge(.bottom, to: .top, of: passwordTextField, withOffset: -15)
+        emailTextField.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        emailTextField.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         emailTextField.layer.cornerRadius = 25
         
-        passwordTextField.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
-        passwordTextField.autoPinEdge(.top, to: .bottom, of: emailTextField, withOffset: 15)
-        passwordTextField.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        passwordTextField.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        passwordTextField.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         passwordTextField.layer.cornerRadius = 25
+        passwordTextField.autoCenterInSuperview()
         
-        button.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
         button.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 15)
-        button.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        button.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        button.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         button.layer.cornerRadius = 25
     }
     
