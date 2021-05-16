@@ -14,12 +14,13 @@ protocol AppRouterProtocol {
     func showLoginViewController()
     func showQuizViewController(questions: [Question])
     func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int)
-    func showFirstQuestion()
-    func showNextQuestion()
 }
 
 class AppRouter: AppRouterProtocol {
+    
     private let navigationController: UINavigationController!
+    private var startTime: DispatchTime!
+    private var endTime: DispatchTime!
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -43,8 +44,9 @@ class AppRouter: AppRouterProtocol {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [quizzesVC, settingsVC]
         
-        navigationController.viewControllers.insert(tabBarController, at: 0)
-        navigationController.popToRootViewController(animated: true)
+        //navigationController.viewControllers.insert(tabBarController, at: 0)
+        //navigationController.popToRootViewController(animated: true)
+        navigationController.setViewControllers([tabBarController], animated: true)
     }
     
     func showLoginViewController() {
@@ -64,8 +66,10 @@ class AppRouter: AppRouterProtocol {
         
         var controllers = [UIViewController]()
         for question in questions {
+            //TODO makni puno progressbarova
             let progressBar = UIProgressView()
             progressBar.trackTintColor = GlobalConstants.answerColor
+            
             progressBar.progressTintColor = .white
             progressBar.layer.cornerRadius = 4
             stackView.addArrangedSubview(progressBar)
@@ -75,20 +79,49 @@ class AppRouter: AppRouterProtocol {
         }
         
         vc.addControllers(controllers: controllers)
+        startTime = DispatchTime.now() + Double(questions.count)*2.0
+        print(startTime!)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int) {
+        endTime = DispatchTime.now()
+        print(endTime!)
+        let nanoTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+        let timeInterval = Double(nanoTime) / 1_000_000_000
+        print("Time needed -> \(timeInterval)")
+        
+        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/result") else { return }
+        let parameters: [String: Any] = [
+            "quiz_id" : UserDefaults.standard.integer(forKey: "quiz_id"),
+            "user_id" : UserDefaults.standard.integer(forKey: "user_id"),
+            "time" : timeInterval,
+            "no_of_correct" : numberOfCorrect
+        ]
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(UserDefaults.standard.string(forKey: "user_token")!, forHTTPHeaderField: "Authorization")
+        request.httpBody = httpBody
+        
+        print("id je \(UserDefaults.standard.string(forKey: "user_id")!), token je \(UserDefaults.standard.string(forKey: "user_token")!)")
+        print(request)
+        NetworkService().executeUrlRequest(request) { (result: Result<PostResultResponse, RequestError>) in
+            switch result {
+            case.failure(let error):
+                print(error)
+                print("dogodio se error kod slanja rezultata")
+                return
+            case.sucess(let value):
+                print("result sent successfully \(value)")
+            }
+            
+        }
+        
         let vc = QuizResultViewController(router: self, numberOfCorrect: numberOfCorrect, numberOfQuestions: numberOfQuestions)
         
         navigationController.pushViewController(vc, animated: true)
-    }
-    func showFirstQuestion() {
-        
-    }
-    
-    func showNextQuestion() {
-        
     }
 }
 

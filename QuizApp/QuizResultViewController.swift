@@ -58,7 +58,6 @@ class QuizResultViewController: SharedViewController, UITextFieldDelegate {
         resultLabel.autoAlignAxis(toSuperviewAxis: .vertical)
         resultLabel.autoAlignAxis(.horizontal, toSameAxisOf: resultLabel.superview!, withOffset: -50)
         
-        
         finishButton.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 15)
         finishButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
         finishButton.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)

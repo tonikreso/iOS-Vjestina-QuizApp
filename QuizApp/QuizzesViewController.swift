@@ -128,38 +128,60 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     @objc func getQuizzes(sender: UIButton!) {
-        quizzes = DataService().fetchQuizes()
-        let questions = quizzes.map {
-            $0.questions
-        }.flatMap({ (element: [Question]) -> [Question] in
-            return element
-        }).map {
-            $0.question
-        }.filter {
-            $0.contains("NBA")
-        }
-        categoryDict = [QuizCategory: [Quiz]]()
-        indexDict = [Int: QuizCategory]()
-        var numberOfQuizzes = 0
-        var i = 0
-        for quiz in quizzes {
-            numberOfQuizzes += 1
-            if !categoryDict.keys.contains(quiz.category) {
-                let tmp : [Quiz] = []
-                categoryDict[quiz.category] = tmp
-                indexDict[i] = quiz.category
-                i += 1
+        quizzes = nil
+        
+        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/quizzes") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print(request)
+        DispatchQueue.global(qos: .userInitiated).async {
+            NetworkService().executeUrlRequest(request) { (result: Result<GetQuizzesResponse, RequestError>) in
+                switch result {
+                case.failure(let error):
+                    print(error)
+                    print("dogodio se error kod dobivajna kvizova")
+                    return
+                case.sucess(let value):
+                    print("tu sam")
+                    self.quizzes = value.quizzes
+                    print(self.quizzes.count)
+                    print("get quizzes successful \(value)")
+                }
+                DispatchQueue.main.async {
+                    let questions = self.quizzes.map {
+                        $0.questions
+                    }.flatMap({ (element: [Question]) -> [Question] in
+                        return element
+                    }).map {
+                        $0.question
+                    }.filter {
+                        $0.contains("NBA")
+                    }
+                    self.categoryDict = [QuizCategory: [Quiz]]()
+                    self.indexDict = [Int: QuizCategory]()
+                    var numberOfQuizzes = 0
+                    var i = 0
+                    for quiz in self.quizzes {
+                        numberOfQuizzes += 1
+                        if !self.categoryDict.keys.contains(quiz.category) {
+                            let tmp : [Quiz] = []
+                            self.categoryDict[quiz.category] = tmp
+                            self.indexDict[i] = quiz.category
+                            i += 1
+                        }
+                        self.categoryDict[quiz.category]?.append(quiz)
+                    }
+                    
+                    self.tableView.reloadData()
+                    
+                    self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
+                    
+                    self.funFactLabel.isHidden = false
+                    self.funFactText.isHidden = false
+                    self.tableView.isHidden = false
+                }
             }
-            categoryDict[quiz.category]?.append(quiz)
         }
-        
-        tableView.reloadData()
-        
-        funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
-        
-        funFactLabel.isHidden = false
-        funFactText.isHidden = false
-        tableView.isHidden = false
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -206,6 +228,9 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         let quizCategory = indexDict[indexPath.section]
         let quiz = categoryDict[quizCategory!]![indexPath.row]
         let questions = quiz.questions
+        
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(quiz.id, forKey: "quiz_id")
         router.showQuizViewController(questions: questions)
     }
     

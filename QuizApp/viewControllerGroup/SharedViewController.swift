@@ -42,6 +42,4 @@ class SharedViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         gradientLayer.frame = view.bounds
     }
-    
-    
 }

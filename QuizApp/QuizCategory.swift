@@ -1,4 +1,4 @@
-enum QuizCategory: String {
+enum QuizCategory: String, Codable, CaseIterable {
 
     case sport = "SPORTS"
     case science = "SCIENCE"

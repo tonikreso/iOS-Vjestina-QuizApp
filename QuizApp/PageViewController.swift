@@ -35,8 +35,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
         print(controllers.count)
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,8 +43,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
         
         setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
     }
-    
-    
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard
