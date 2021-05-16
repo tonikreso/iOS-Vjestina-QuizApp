@@ -135,20 +135,17 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
     @objc func loginAction(sender: UIButton!) {
         guard let url = URL(string: "https://iosquiz.herokuapp.com/api/session") else { return }
         let parameters: [String: Any] = [
-            "username" : "username",
-            "password" : "password"
+            "username" : emailTextField.text!,
+            "password" : passwordTextField.text!
         ]
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = httpBody
-        print(request)
         NetworkService().executeUrlRequest(request) { (result: Result<LoginResponse, RequestError>) in
             switch result {
             case.failure(let error):
-                print(error)
-                print("dogodio se error kod logina")
                 DispatchQueue.main.async {
                     self.present(self.alert, animated: true, completion:{
                         self.alert.view.superview?.isUserInteractionEnabled = true
@@ -159,10 +156,8 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
                 return
             case.sucess(let value):
                 let userDefaults = UserDefaults.standard
-                print("id je \(value.id), token je \(value.token)")
                 userDefaults.setValue(value.id, forKey: "user_id")
                 userDefaults.setValue(value.token, forKey: "user_token")
-                print("login successful\(value)")
                 DispatchQueue.main.async {
                     self.router.showQuizzesViewController()
                 }
@@ -170,19 +165,6 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
             }
             
         }
-        
-//        let loginStatus = DataService().login(email: emailTextField.text!, password: passwordTextField.text!)
-//        print(emailTextField.text!)
-//        print(passwordTextField.text!)
-//        if case .success  = loginStatus {
-//            router.showQuizzesViewController()
-//        }
-//        if case .error(400, "Bad Request") = loginStatus {
-//            self.present(alert, animated: true, completion:{
-//                self.alert.view.superview?.isUserInteractionEnabled = true
-//                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
-//             })
-//        }
     }
     @objc func dismissOnTapOutside(){
        self.dismiss(animated: true, completion: nil)

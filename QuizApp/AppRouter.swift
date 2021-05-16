@@ -43,17 +43,13 @@ class AppRouter: AppRouterProtocol {
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [quizzesVC, settingsVC]
-        
-        //navigationController.viewControllers.insert(tabBarController, at: 0)
-        //navigationController.popToRootViewController(animated: true)
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     
     func showLoginViewController() {
         let vc = LoginViewController(router: self)
         
-        navigationController.viewControllers.insert(vc, at: 0)
-        navigationController.popToRootViewController(animated: true)
+        navigationController.setViewControllers([vc], animated: true)
     }
     
     func showQuizViewController(questions: [Question]) {
@@ -80,16 +76,13 @@ class AppRouter: AppRouterProtocol {
         
         vc.addControllers(controllers: controllers)
         startTime = DispatchTime.now() + Double(questions.count)*2.0
-        print(startTime!)
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showQuizResultViewController(numberOfCorrect: Int, numberOfQuestions: Int) {
         endTime = DispatchTime.now()
-        print(endTime!)
         let nanoTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
         let timeInterval = Double(nanoTime) / 1_000_000_000
-        print("Time needed -> \(timeInterval)")
         
         guard let url = URL(string: "https://iosquiz.herokuapp.com/api/result") else { return }
         let parameters: [String: Any] = [
@@ -104,14 +97,9 @@ class AppRouter: AppRouterProtocol {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(UserDefaults.standard.string(forKey: "user_token")!, forHTTPHeaderField: "Authorization")
         request.httpBody = httpBody
-        
-        print("id je \(UserDefaults.standard.string(forKey: "user_id")!), token je \(UserDefaults.standard.string(forKey: "user_token")!)")
-        print(request)
         NetworkService().executeUrlRequest(request) { (result: Result<PostResultResponse, RequestError>) in
             switch result {
             case.failure(let error):
-                print(error)
-                print("dogodio se error kod slanja rezultata")
                 return
             case.sucess(let value):
                 print("result sent successfully \(value)")

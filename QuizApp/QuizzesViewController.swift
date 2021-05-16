@@ -133,19 +133,13 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         guard let url = URL(string: "https://iosquiz.herokuapp.com/api/quizzes") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        print(request)
         DispatchQueue.global(qos: .userInitiated).async {
             NetworkService().executeUrlRequest(request) { (result: Result<GetQuizzesResponse, RequestError>) in
                 switch result {
                 case.failure(let error):
-                    print(error)
-                    print("dogodio se error kod dobivajna kvizova")
                     return
                 case.sucess(let value):
-                    print("tu sam")
                     self.quizzes = value.quizzes
-                    print(self.quizzes.count)
-                    print("get quizzes successful \(value)")
                 }
                 DispatchQueue.main.async {
                     let questions = self.quizzes.map {
