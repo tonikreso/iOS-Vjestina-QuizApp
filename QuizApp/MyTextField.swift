@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MyTextField: UITextField {
-    let padding = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    let padding = UIEdgeInsets(top: 15, left: 25, bottom: 15, right: 25)
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.editingRect(forBounds: bounds)
