@@ -9,19 +9,23 @@ import Foundation
 import UIKit
 import PureLayout
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: SharedViewController, UITextFieldDelegate {
+    
+    private var router: AppRouterProtocol!
     
     private var nameLabel: UILabel!
     private var emailTextField: MyTextField!
-    private var passwordTextField: UITextField!
+    private var passwordTextField: MyTextField!
     private var button: UIButton!
     private var passwordButton: UIButton!
-    private var gradientLayer: CAGradientLayer!
     private var alert: UIAlertController!
     
-    private var nameLabelFont = "HelveticaNeue-Bold"
-    private var gradientColor1 = UIColor(red: 58/255, green: 55/255, blue: 129/255, alpha: 1)
-    private var gradientColor2 = UIColor(red: 101/255, green: 73/255, blue: 154/255, alpha: 1)
+    private let nameLabelFont = "HelveticaNeue-Bold"
+    
+    convenience init(router: AppRouterProtocol) {
+        self.init()
+        self.router = router
+    }
      
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,24 +54,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button = UIButton()
         view.addSubview(button)
         
-        gradientLayer = CAGradientLayer()
-        view.layer.insertSublayer(gradientLayer, at: 0)
-        
         alert = UIAlertController(title: "Login Error", message: "Incorrect username or password. Try again.", preferredStyle: .alert)
     }
     
     private func styleViews() {
-        gradientLayer.colors = [gradientColor1.cgColor, gradientColor2.cgColor]
-        
         nameLabel.text = "PopQuiz"
         nameLabel.font = UIFont(name: nameLabelFont, size: 30.0)
         nameLabel.textColor = .white
         
-        emailTextField.backgroundColor = UIColor(red: 137/255, green: 123/255, blue: 178/255, alpha: 1)
+        emailTextField.backgroundColor = GlobalConstants.answerColor
         emailTextField.textColor = .white
         emailTextField.keyboardType = UIKeyboardType.emailAddress
         
-        passwordTextField.backgroundColor = UIColor(red: 137/255, green: 123/255, blue: 178/255, alpha: 1)
+        passwordTextField.backgroundColor = GlobalConstants.answerColor
         passwordTextField.textColor = .white
         passwordTextField.isSecureTextEntry = true
         passwordTextField.rightViewMode = .whileEditing
@@ -79,8 +78,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button.backgroundColor = .white
         button.isEnabled = false
         button.alpha = 0.5
-        button.setAttributedTitle(NSAttributedString(string: "Login", attributes: [NSAttributedString.Key.foregroundColor: gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "Login", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
         button.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
+        button.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
         
     }
     
@@ -88,19 +88,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         nameLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 20)
         nameLabel.autoAlignAxis(toSuperviewAxis: .vertical)
         
-        emailTextField.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
-        emailTextField.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 150)
-        emailTextField.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        emailTextField.autoPinEdge(.bottom, to: .top, of: passwordTextField, withOffset: -15)
+        emailTextField.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        emailTextField.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         emailTextField.layer.cornerRadius = 25
         
-        passwordTextField.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
-        passwordTextField.autoPinEdge(.top, to: .bottom, of: emailTextField, withOffset: 15)
-        passwordTextField.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        passwordTextField.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        passwordTextField.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         passwordTextField.layer.cornerRadius = 25
+        passwordTextField.autoCenterInSuperview()
         
-        button.autoAlignAxis(.vertical, toSameAxisOf: nameLabel)
         button.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 15)
-        button.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        button.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+        button.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         button.layer.cornerRadius = 25
     }
     
@@ -131,18 +131,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             passwordButton.setImage(UIImage(named: "ic_eye_closed"), for: .normal)
         }
     }
-    override func viewDidLayoutSubviews() {
-        gradientLayer.frame = view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0, y: 1)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
-    }
     
     @objc func loginAction(sender: UIButton!) {
         let loginStatus = DataService().login(email: emailTextField.text!, password: passwordTextField.text!)
         print(emailTextField.text!)
         print(passwordTextField.text!)
         if case .success  = loginStatus {
-            print("Uspioo")
+            router.showQuizzesViewController()
         }
         if case .error(400, "Bad Request") = loginStatus {
             self.present(alert, animated: true, completion:{
