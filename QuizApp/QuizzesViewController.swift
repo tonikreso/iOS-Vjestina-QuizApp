@@ -128,54 +128,39 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     @objc func getQuizzes(sender: UIButton!) {
-        quizzes = nil
+        quizzes = NetworkService.singletonNetworkService.getQuizzes()
         
-        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/quizzes") else { return }
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        DispatchQueue.global(qos: .userInitiated).async {
-            NetworkService().executeUrlRequest(request) { (result: Result<GetQuizzesResponse, RequestError>) in
-                switch result {
-                case.failure(let error):
-                    return
-                case.sucess(let value):
-                    self.quizzes = value.quizzes
-                }
-                DispatchQueue.main.async {
-                    let questions = self.quizzes.map {
-                        $0.questions
-                    }.flatMap({ (element: [Question]) -> [Question] in
-                        return element
-                    }).map {
-                        $0.question
-                    }.filter {
-                        $0.contains("NBA")
-                    }
-                    self.categoryDict = [QuizCategory: [Quiz]]()
-                    self.indexDict = [Int: QuizCategory]()
-                    var numberOfQuizzes = 0
-                    var i = 0
-                    for quiz in self.quizzes {
-                        numberOfQuizzes += 1
-                        if !self.categoryDict.keys.contains(quiz.category) {
-                            let tmp : [Quiz] = []
-                            self.categoryDict[quiz.category] = tmp
-                            self.indexDict[i] = quiz.category
-                            i += 1
-                        }
-                        self.categoryDict[quiz.category]?.append(quiz)
-                    }
-                    
-                    self.tableView.reloadData()
-                    
-                    self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
-                    
-                    self.funFactLabel.isHidden = false
-                    self.funFactText.isHidden = false
-                    self.tableView.isHidden = false
-                }
-            }
+        let questions = self.quizzes.map {
+            $0.questions
+        }.flatMap({ (element: [Question]) -> [Question] in
+            return element
+        }).map {
+            $0.question
+        }.filter {
+            $0.contains("NBA")
         }
+        self.categoryDict = [QuizCategory: [Quiz]]()
+        self.indexDict = [Int: QuizCategory]()
+        var numberOfQuizzes = 0
+        var i = 0
+        for quiz in self.quizzes {
+            numberOfQuizzes += 1
+            if !self.categoryDict.keys.contains(quiz.category) {
+                let tmp : [Quiz] = []
+                self.categoryDict[quiz.category] = tmp
+                self.indexDict[i] = quiz.category
+                i += 1
+            }
+            self.categoryDict[quiz.category]?.append(quiz)
+        }
+        
+        self.tableView.reloadData()
+        
+        self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
+        
+        self.funFactLabel.isHidden = false
+        self.funFactText.isHidden = false
+        self.tableView.isHidden = false
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -133,39 +133,18 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
     }
     
     @objc func loginAction(sender: UIButton!) {
-        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/session") else { return }
-        let parameters: [String: Any] = [
-            "username" : emailTextField.text!,
-            "password" : passwordTextField.text!
-        ]
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-        NetworkService().executeUrlRequest(request) { (result: Result<LoginResponse, RequestError>) in
-            switch result {
-            case.failure(let error):
-                DispatchQueue.main.async {
-                    self.present(self.alert, animated: true, completion:{
-                        self.alert.view.superview?.isUserInteractionEnabled = true
-                        self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
-                     })
-                }
-                
-                return
-            case.sucess(let value):
-                let userDefaults = UserDefaults.standard
-                userDefaults.setValue(value.id, forKey: "user_id")
-                userDefaults.setValue(value.token, forKey: "user_token")
-                DispatchQueue.main.async {
-                    self.router.showQuizzesViewController()
-                }
-                
-            }
-            
+        let loggedIn = NetworkService.singletonNetworkService.postLogin(username: self.emailTextField.text!, password: self.passwordTextField.text!)
+        
+        if loggedIn {
+            self.router.showQuizzesViewController()
+        } else {
+            self.present(self.alert, animated: true, completion:{
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
+             })
         }
     }
+    
     @objc func dismissOnTapOutside(){
        self.dismiss(animated: true, completion: nil)
     }

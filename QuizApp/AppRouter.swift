@@ -84,28 +84,7 @@ class AppRouter: AppRouterProtocol {
         let nanoTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
         let timeInterval = Double(nanoTime) / 1_000_000_000
         
-        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/result") else { return }
-        let parameters: [String: Any] = [
-            "quiz_id" : UserDefaults.standard.integer(forKey: "quiz_id"),
-            "user_id" : UserDefaults.standard.integer(forKey: "user_id"),
-            "time" : timeInterval,
-            "no_of_correct" : numberOfCorrect
-        ]
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(UserDefaults.standard.string(forKey: "user_token")!, forHTTPHeaderField: "Authorization")
-        request.httpBody = httpBody
-        NetworkService().executeUrlRequest(request) { (result: Result<PostResultResponse, RequestError>) in
-            switch result {
-            case.failure(let error):
-                return
-            case.sucess(let value):
-                print("result sent successfully \(value)")
-            }
-            
-        }
+        NetworkService.singletonNetworkService.postResult(timeInterval: timeInterval, numberOfCorrect: numberOfCorrect)
         
         let vc = QuizResultViewController(router: self, numberOfCorrect: numberOfCorrect, numberOfQuestions: numberOfQuestions)
         
