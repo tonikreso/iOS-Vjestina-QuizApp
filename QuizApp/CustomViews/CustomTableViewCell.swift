@@ -47,15 +47,22 @@ class CustomTableViewCell: UITableViewCell {
     func setMyValues(imageUrl: String, title: String, descriptionText: String, level: String) {
         let tmpImage = UIImage(named: "football-strategy")
         quizImage.image = tmpImage
-        quizImage.contentMode = .scaleAspectFill
-        quizImage.clipsToBounds = true
         quizDescription.text = descriptionText
         headline.text = title
         grade.text = level
     }
     
+    func set(viewModel: QuizViewModel) {
+        quizImage.image = UIImage(named: "football-strategy")
+        quizDescription.text = viewModel.description
+        headline.text = viewModel.title
+        grade.text = String(viewModel.level)
+    }
+    
     private func styleViews() {
         quizImage.layer.cornerRadius = 8
+        quizImage.contentMode = .scaleAspectFill
+        quizImage.clipsToBounds = true
         
         headline.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         headline.textColor = .white

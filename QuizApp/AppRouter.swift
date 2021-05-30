@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 protocol AppRouterProtocol {
     func setStartScreen(in window: UIWindow?)
@@ -35,8 +36,18 @@ class AppRouter: AppRouterProtocol {
         window?.makeKeyAndVisible()
     }
     
+    private func createQuizzesViewController() -> QuizzesViewController{
+        let coreDataContext = CoreDataStack(modelName: "QuizDatabaseDataSource").managedContext
+        let quizDataRepository = QuizDataRepository(networkDataSource: QuizNetworkDataSource(), coreDataSource: QuizCoreDataSource(coreDataContext: coreDataContext))
+        let quizUseCase = QuizUseCase(quizRepository: quizDataRepository)
+        let presenter = QuizListPresenter(quizUseCase: quizUseCase, coordinator: self)
+        let tmpVC = QuizzesViewController(router: self)
+        tmpVC.addPresenter(presenter: presenter)
+        return tmpVC
+        
+    }
     func showQuizzesViewController() {
-        let quizzesVC = QuizzesViewController(router: self)
+        let quizzesVC = createQuizzesViewController()
         quizzesVC.title = "Quizzes"
         let settingsVC = SettingViewController(router: self)
         settingsVC.title = "Settings"

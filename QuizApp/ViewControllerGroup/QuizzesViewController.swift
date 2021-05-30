@@ -22,6 +22,9 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     private var categoryDict: [QuizCategory: [Quiz]]!
     private var indexDict: [Int: QuizCategory]!
     private var funFactText: UILabel!
+    private var presenter: QuizListPresenter!
+    private var searchController: UISearchController!
+    private var refreshControl: UIRefreshControl!
     
     let cellIdentifier = "cellId"
     
@@ -32,16 +35,51 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         self.router = router
     }
     
+    
+    func addPresenter(presenter: QuizListPresenter) {
+        self.presenter = presenter
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buildViews()
         styleViews()
         defineLayoutForViews()
+        buildSearchController()
+        buildRefreshControl()
+        refreshQuizzes()
+    }
+    
+    private func buildSearchController() {
+        searchController.searchResultsUpdater = self
+    }
+    
+    private func buildRefreshControl() {
+        refreshControl.addAction(.init { [weak self] _ in
+            guard let self = self else { return }
+            self.refreshControl.beginRefreshing()
+            self.refreshQuizzes()
+            self.refreshControl.endRefreshing()
+        }, for: .valueChanged)
+    }
+    
+    private func refreshQuizzes() {
+        do {
+            try presenter.refreshQuizzes()
+            tableView.reloadData()
+        } catch {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
     
     private func buildViews() {
         scrollView = UIScrollView()
         view.addSubview(scrollView)
+        
+        searchController = UISearchController()
+        navigationItem.searchController = searchController
         
         nameLabel = UILabel()
         scrollView.addSubview(nameLabel)
@@ -63,6 +101,9 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         tableView.delegate = self
         scrollView.addSubview(tableView)
+        
+        refreshControl = UIRefreshControl()
+        tableView.refreshControl = refreshControl
         
         categoryDict = [QuizCategory: [Quiz]]()
         indexDict = [Int: QuizCategory]()
@@ -91,6 +132,10 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.isHidden = true
         tableView.rowHeight = 150
         tableView.backgroundColor = UIColor.white.withAlphaComponent(0)
+        
+        searchController.searchBar.placeholder = "Search quizzes"
+        searchController.obscuresBackgroundDuringPresentation = false
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing")
     }
     
     private func defineLayoutForViews() {
@@ -101,6 +146,8 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        
+        
         
         nameLabel.autoPinEdge(.top, to: .top, of: scrollView, withOffset: 35)
         nameLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
@@ -128,35 +175,39 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     @objc func getQuizzes(sender: UIButton!) {
-        quizzes = NetworkService.singletonNetworkService.getQuizzes()
-        
-        let questions = self.quizzes.map {
-            $0.questions
-        }.flatMap({ (element: [Question]) -> [Question] in
-            return element
-        }).map {
-            $0.question
-        }.filter {
-            $0.contains("NBA")
+        //quizzes = NetworkService.singletonNetworkService.getQuizzes()
+        do {
+            try presenter.refreshQuizzes()
+        } catch {
+            print("getquizzes baca error")
         }
-        self.categoryDict = [QuizCategory: [Quiz]]()
-        self.indexDict = [Int: QuizCategory]()
-        var numberOfQuizzes = 0
-        var i = 0
-        for quiz in self.quizzes {
-            numberOfQuizzes += 1
-            if !self.categoryDict.keys.contains(quiz.category) {
-                let tmp : [Quiz] = []
-                self.categoryDict[quiz.category] = tmp
-                self.indexDict[i] = quiz.category
-                i += 1
-            }
-            self.categoryDict[quiz.category]?.append(quiz)
-        }
+//        let questions = self.quizzes.map {
+//            $0.questions
+//        }.flatMap({ (element: [Question]) -> [Question] in
+//            return element
+//        }).map {
+//            $0.question
+//        }.filter {
+//            $0.contains("NBA")
+//        }
+//        self.categoryDict = [QuizCategory: [Quiz]]()
+//        self.indexDict = [Int: QuizCategory]()
+//        var numberOfQuizzes = 0
+//        var i = 0
+//        for quiz in self.quizzes {
+//            numberOfQuizzes += 1
+//            if !self.categoryDict.keys.contains(quiz.category) {
+//                let tmp : [Quiz] = []
+//                self.categoryDict[quiz.category] = tmp
+//                self.indexDict[i] = quiz.category
+//                i += 1
+//            }
+//            self.categoryDict[quiz.category]?.append(quiz)
+//        }
         
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
         
-        self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
+        //self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
         
         self.funFactLabel.isHidden = false
         self.funFactText.isHidden = false
@@ -164,29 +215,27 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return categoryDict.count
+        presenter.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let indexSection = indexDict[section] else {
-            return 0
-        }
-        guard let sectionDict = categoryDict[indexSection] else {
-            return 0
-        }
-        return sectionDict.count
+        presenter.numberOfRows(for: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let quizCategory = indexDict[indexPath.section]
-        let quiz = categoryDict[quizCategory!]![indexPath.row]
+        print("cellforrowat")
+        guard
+            let cell = tableView.dequeueReusableCell(
+            withIdentifier: cellIdentifier,
+            for: indexPath) as? CustomTableViewCell,
+            let viewModel = presenter.viewModelForIndexPath(indexPath)
+        else {
+            return UITableViewCell()
+        }
         
-        let cell = tableView.dequeueReusableCell(
-        withIdentifier: cellIdentifier,
-        for: indexPath) as! CustomTableViewCell// 4.
         
-        
-        cell.setMyValues(imageUrl: quiz.imageUrl, title: quiz.title, descriptionText: quiz.description, level: "\(quiz.level)")
+        //cell.setMyValues(imageUrl: quiz.imageUrl, title: quiz.title, descriptionText: quiz.description, level: "\(quiz.level)")
+        cell.set(viewModel: viewModel)
         
         return cell
     }
@@ -204,13 +253,22 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let quizCategory = indexDict[indexPath.section]
-        let quiz = categoryDict[quizCategory!]![indexPath.row]
-        let questions = quiz.questions
+        
+        let viewModel = presenter.viewModelForIndexPath(indexPath)
+        guard let questions = viewModel?.questions else { return }
         
         let userDefaults = UserDefaults.standard
-        userDefaults.setValue(quiz.id, forKey: "quiz_id")
+        userDefaults.setValue(viewModel?.id, forKey: "quiz_id")
         router.showQuizViewController(questions: questions)
     }
     
+}
+
+extension QuizzesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let filter = FilterSettings(searchText: searchBar.text)
+        presenter.filterQuizzes(filter: filter)
+        tableView.reloadData()
+    }
 }
