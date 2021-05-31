@@ -4,7 +4,7 @@
 //
 //  Created by Kompjuter on 29/05/2021.
 //
-
+import Reachability
 final class QuizUseCase {
     private let quizRepository: QuizRepositoryProtocol
     
@@ -13,7 +13,15 @@ final class QuizUseCase {
     }
     
     func refreshData() throws {
-        try quizRepository.fetchRemoteData()
+        guard let r = Reachability(hostname: "https://www.apple.com") else { return }
+        switch r.currentReachabilityStatus() {
+        case .ReachableViaWWAN, .ReachableViaWiFi:
+            try quizRepository.fetchRemoteData()
+            break
+        default:
+            break
+        }
+        //try quizRepository.fetchRemoteData()
     }
     
     func getQuizzes(filter: FilterSettings) -> [Quiz]{

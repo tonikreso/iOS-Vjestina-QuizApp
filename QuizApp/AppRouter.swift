@@ -28,7 +28,8 @@ class AppRouter: AppRouterProtocol {
     }
     
     func setStartScreen(in window: UIWindow?) {
-        let vc = LoginViewController(router: self)
+        let vc = createQuizzesViewController()
+        //let vc = LoginViewController(router: self)
         
         navigationController.pushViewController(vc, animated: false)
         
