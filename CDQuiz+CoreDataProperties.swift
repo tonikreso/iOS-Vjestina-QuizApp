@@ -2,7 +2,7 @@
 //  CDQuiz+CoreDataProperties.swift
 //  QuizApp
 //
-//  Created by Kompjuter on 30/05/2021.
+//  Created by Kompjuter on 31/05/2021.
 //
 //
 
@@ -22,14 +22,30 @@ extension CDQuiz {
     @NSManaged public var level: Int32
     @NSManaged public var quizdescription: String?
     @NSManaged public var title: String?
-    @NSManaged public var questions: [CDQuestion]?
-    
-    
+    @NSManaged public var questions: NSOrderedSet?
 
 }
 
 // MARK: Generated accessors for questions
 extension CDQuiz {
+
+    @objc(insertObject:inQuestionsAtIndex:)
+    @NSManaged public func insertIntoQuestions(_ value: CDQuestion, at idx: Int)
+
+    @objc(removeObjectFromQuestionsAtIndex:)
+    @NSManaged public func removeFromQuestions(at idx: Int)
+
+    @objc(insertQuestions:atIndexes:)
+    @NSManaged public func insertIntoQuestions(_ values: [CDQuestion], at indexes: NSIndexSet)
+
+    @objc(removeQuestionsAtIndexes:)
+    @NSManaged public func removeFromQuestions(at indexes: NSIndexSet)
+
+    @objc(replaceObjectInQuestionsAtIndex:withObject:)
+    @NSManaged public func replaceQuestions(at idx: Int, with value: CDQuestion)
+
+    @objc(replaceQuestionsAtIndexes:withQuestions:)
+    @NSManaged public func replaceQuestions(at indexes: NSIndexSet, with values: [CDQuestion])
 
     @objc(addQuestionsObject:)
     @NSManaged public func addToQuestions(_ value: CDQuestion)
@@ -38,10 +54,10 @@ extension CDQuiz {
     @NSManaged public func removeFromQuestions(_ value: CDQuestion)
 
     @objc(addQuestions:)
-    @NSManaged public func addToQuestions(_ values: NSSet)
+    @NSManaged public func addToQuestions(_ values: NSOrderedSet)
 
     @objc(removeQuestions:)
-    @NSManaged public func removeFromQuestions(_ values: NSSet)
+    @NSManaged public func removeFromQuestions(_ values: NSOrderedSet)
 
 }
 

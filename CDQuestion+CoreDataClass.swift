@@ -2,7 +2,7 @@
 //  CDQuestion+CoreDataClass.swift
 //  QuizApp
 //
-//  Created by Kompjuter on 30/05/2021.
+//  Created by Kompjuter on 31/05/2021.
 //
 //
 

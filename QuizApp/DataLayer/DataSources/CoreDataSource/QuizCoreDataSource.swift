@@ -49,12 +49,18 @@ struct QuizCoreDataSource: QuizCoreDataSourceProtocol {
         quizzes.forEach { quiz in
             do {
                 let cdQuiz = try fetchQuiz(withId: quiz.id) ?? CDQuiz(context: coreDataContext)
-                        quiz.populate(cdQuiz, in: coreDataContext)
-                for question in quiz.questions {
-                    let cdQuestion = CDQuestion(context: coreDataContext)
-                    question.populate(cdQuestion)
-                    cdQuiz.addToQuestions(cdQuestion)
+                
+                if cdQuiz.title == nil {
+                    quiz.populate(cdQuiz, in: coreDataContext)
+                    for question in quiz.questions {
+                        print("\(quiz.title) -> \(question)")
+                        let cdQuestion = CDQuestion(context: coreDataContext)
+                        question.populate(cdQuestion)
+                        cdQuiz.removeFromQuestions(cdQuestion)
+                        cdQuiz.addToQuestions(cdQuestion)
+                    }
                 }
+                
             } catch {
                 print("Error when fetching/creating a quiz: \(error)")
             }

@@ -13,9 +13,12 @@ import CoreData
 public class CDQuiz: NSManagedObject {
     func getQuestions() -> [Question] {
         var tmpList: [Question] = []
-        for index in 0...self.questions!.count-1 {
-            tmpList.append(Question(with: self.questions![index]))
+        
+        
+        for index in 1...self.questions!.count {
+            tmpList.append(Question(with: (self.questions![index-1]) as! CDQuestion))
         }
         return tmpList
+        
     }
 }

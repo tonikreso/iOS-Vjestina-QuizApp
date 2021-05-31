@@ -14,7 +14,7 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     
     private var scrollView: UIScrollView!
     private var nameLabel: UILabel!
-    private var getQuizButton: UIButton!
+    //private var getQuizButton: UIButton!
     private var funFactLabel: UILabel!
     private var infoButton: UIButton!
     private var tableView: UITableView!
@@ -84,8 +84,8 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         nameLabel = UILabel()
         scrollView.addSubview(nameLabel)
         
-        getQuizButton = UIButton()
-        scrollView.addSubview(getQuizButton)
+//        getQuizButton = UIButton()
+//        scrollView.addSubview(getQuizButton)
         
         funFactLabel = UILabel()
         scrollView.addSubview(funFactLabel)
@@ -116,20 +116,17 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         nameLabel.textColor = .white
         nameLabel.textAlignment = .center
         
-        getQuizButton.backgroundColor = .white
-        getQuizButton.setAttributedTitle(NSAttributedString(string: "Get Quiz", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
-        getQuizButton.addTarget(self, action: #selector(getQuizzes), for: .touchUpInside)
+//        getQuizButton.backgroundColor = .white
+//        getQuizButton.setAttributedTitle(NSAttributedString(string: "Get Quiz", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
+//        getQuizButton.addTarget(self, action: #selector(getQuizzes), for: .touchUpInside)
         
-        funFactLabel.text = "Fun fact"
+        //funFactLabel.text = "Fun fact"
         funFactLabel.font = UIFont(name: nameLabelFont, size: 25.0)
         funFactLabel.textColor = .white
-        funFactLabel.isHidden = true
         
         funFactText.font = UIFont(name: nameLabelFont, size: 16)
         funFactText.textColor = .white
-        funFactText.isHidden = true
         
-        tableView.isHidden = true
         tableView.rowHeight = 150
         tableView.backgroundColor = UIColor.white.withAlphaComponent(0)
         
@@ -153,13 +150,13 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         nameLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
         nameLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         
-        getQuizButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
-        getQuizButton.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
-        getQuizButton.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
-        getQuizButton.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
-        getQuizButton.layer.cornerRadius = 25
+//        getQuizButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
+//        getQuizButton.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+//        getQuizButton.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
+//        getQuizButton.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
+//        getQuizButton.layer.cornerRadius = 25
         
-        funFactLabel.autoPinEdge(.top, to: .bottom, of: getQuizButton, withOffset: 35)
+        funFactLabel.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
         funFactLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 10)
         funFactLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 10)
         
@@ -174,13 +171,9 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 10)
     }
     
-    @objc func getQuizzes(sender: UIButton!) {
-        //quizzes = NetworkService.singletonNetworkService.getQuizzes()
-        do {
-            try presenter.refreshQuizzes()
-        } catch {
-            print("getquizzes baca error")
-        }
+//    @objc func getQuizzes(sender: UIButton!) {
+//        quizzes = NetworkService.singletonNetworkService.getQuizzes()
+//
 //        let questions = self.quizzes.map {
 //            $0.questions
 //        }.flatMap({ (element: [Question]) -> [Question] in
@@ -204,15 +197,13 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
 //            }
 //            self.categoryDict[quiz.category]?.append(quiz)
 //        }
-        
-        //self.tableView.reloadData()
-        
-        //self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
-        
-        self.funFactLabel.isHidden = false
-        self.funFactText.isHidden = false
-        self.tableView.isHidden = false
-    }
+//
+//        self.tableView.reloadData()
+//
+//        self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
+//
+//
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         presenter.numberOfSections()
@@ -241,7 +232,7 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return indexDict[section].map { $0.rawValue }
+        presenter.titleForSection(section)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
