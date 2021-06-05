@@ -28,7 +28,13 @@ class AppRouter: AppRouterProtocol {
     }
     
     func setStartScreen(in window: UIWindow?) {
-        let vc = createQuizzesViewController()
+        //let vc = createQuizzesViewController()
+        let coreDataContext = CoreDataStack(modelName: "QuizDatabaseDataSource").managedContext
+        let quizDataRepository = QuizDataRepository(networkDataSource: QuizNetworkDataSource(), coreDataSource: QuizCoreDataSource(coreDataContext: coreDataContext))
+        let quizUseCase = QuizUseCase(quizRepository: quizDataRepository)
+        let presenter = QuizListPresenter(quizUseCase: quizUseCase, coordinator: self)
+        let vc = SearchQuizViewController(router: self)
+        vc.addPresenter(presenter: presenter)
         //let vc = LoginViewController(router: self)
         
         navigationController.pushViewController(vc, animated: false)

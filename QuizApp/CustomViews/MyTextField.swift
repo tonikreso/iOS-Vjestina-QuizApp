@@ -11,6 +11,7 @@ import UIKit
 class MyTextField: UITextField {
     let padding = UIEdgeInsets(top: 15, left: 25, bottom: 15, right: 25)
     
+    
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.editingRect(forBounds: bounds)
         return rect.inset(by: padding)

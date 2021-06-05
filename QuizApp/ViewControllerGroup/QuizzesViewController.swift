@@ -15,6 +15,8 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     private var scrollView: UIScrollView!
     private var nameLabel: UILabel!
     //private var getQuizButton: UIButton!
+    
+    private var presenter: QuizListPresenter!
     private var funFactLabel: UILabel!
     private var infoButton: UIButton!
     private var tableView: UITableView!
@@ -22,9 +24,7 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     private var categoryDict: [QuizCategory: [Quiz]]!
     private var indexDict: [Int: QuizCategory]!
     private var funFactText: UILabel!
-    private var presenter: QuizListPresenter!
-    private var searchController: UISearchController!
-    private var refreshControl: UIRefreshControl!
+    
     
     let cellIdentifier = "cellId"
     
@@ -45,41 +45,11 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         buildViews()
         styleViews()
         defineLayoutForViews()
-        buildSearchController()
-        buildRefreshControl()
-        refreshQuizzes()
-    }
-    
-    private func buildSearchController() {
-        searchController.searchResultsUpdater = self
-    }
-    
-    private func buildRefreshControl() {
-        refreshControl.addAction(.init { [weak self] _ in
-            guard let self = self else { return }
-            self.refreshControl.beginRefreshing()
-            self.refreshQuizzes()
-            self.refreshControl.endRefreshing()
-        }, for: .valueChanged)
-    }
-    
-    private func refreshQuizzes() {
-        do {
-            try presenter.refreshQuizzes()
-            tableView.reloadData()
-        } catch {
-            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
     }
     
     private func buildViews() {
         scrollView = UIScrollView()
         view.addSubview(scrollView)
-        
-        searchController = UISearchController()
-        navigationItem.searchController = searchController
         
         nameLabel = UILabel()
         scrollView.addSubview(nameLabel)
@@ -102,8 +72,6 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.delegate = self
         scrollView.addSubview(tableView)
         
-        refreshControl = UIRefreshControl()
-        tableView.refreshControl = refreshControl
         
         categoryDict = [QuizCategory: [Quiz]]()
         indexDict = [Int: QuizCategory]()
@@ -130,9 +98,6 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.rowHeight = 150
         tableView.backgroundColor = UIColor.white.withAlphaComponent(0)
         
-        searchController.searchBar.placeholder = "Search quizzes"
-        searchController.obscuresBackgroundDuringPresentation = false
-        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing")
     }
     
     private func defineLayoutForViews() {
@@ -255,11 +220,4 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     
 }
 
-extension QuizzesViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let filter = FilterSettings(searchText: searchBar.text)
-        presenter.filterQuizzes(filter: filter)
-        tableView.reloadData()
-    }
-}
+
