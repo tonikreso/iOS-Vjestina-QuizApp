@@ -45,6 +45,18 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         buildViews()
         styleViews()
         defineLayoutForViews()
+        refreshQuizzes()
+    }
+    
+    private func refreshQuizzes() {
+        do {
+            try presenter.refreshQuizzes()
+            tableView.reloadData()
+        } catch {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
     
     private func buildViews() {
