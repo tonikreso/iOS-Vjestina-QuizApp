@@ -18,5 +18,4 @@ public class CDQuiz: NSManagedObject {
         }
         return tmpList
     }
-    
 }
