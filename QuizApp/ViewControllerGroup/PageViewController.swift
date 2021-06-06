@@ -10,10 +10,12 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
     private var router: AppRouterProtocol!
+    private var progressBarView: ProgressBarView!
     private var controllers: [UIViewController]!
     private var numberOfCorrect = 0
     private var displayedIndex = 0
-    var currentIndex: Int {
+    
+    private var currentIndex: Int {
         guard let tmp = viewControllers?.first else { return 0 }
         return controllers.firstIndex(of: tmp) ?? 0
     }
@@ -26,13 +28,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
         return currentIndex
     }
     
-    func getNumberOfChildren() -> Int {
-        return controllers.count
-    }
     
-    func addControllers(controllers: [UIViewController]!) {
+    func addControllersAndProgressBar(controllers: [UIViewController]!, progressBar: ProgressBarView) {
         self.controllers = controllers
-        print(controllers.count)
+        self.progressBarView = progressBar
     }
     
     override func viewDidLoad() {
@@ -40,7 +39,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
         
         guard let firstVC = controllers.first else { return }
         dataSource = nil
-        
+        progressBarView.startedAt(index: 0)
         setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
     }
     
@@ -74,13 +73,18 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource{
     }
     
     func goToNext(isCorrect: Bool) {
+        progressBarView.answerAt(index: currentIndex, correct: isCorrect)
         if isCorrect {
             numberOfCorrect += 1
         }
-        if currentIndex + 1 >= controllers.count {
-            router.showQuizResultViewController(numberOfCorrect: numberOfCorrect, numberOfQuestions: controllers.count)
-        } else {
-            setViewControllers([controllers[currentIndex + 1]], direction: .forward, animated: false, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if self.currentIndex + 1 >= self.controllers.count {
+                self.router.showQuizResultViewController(numberOfCorrect: self.numberOfCorrect, numberOfQuestions: self.controllers.count)
+            } else {
+                self.progressBarView.startedAt(index: self.currentIndex + 1)
+                self.setViewControllers([self.controllers[self.currentIndex + 1]], direction: .forward, animated: false, completion: nil)   
+            }
         }
+        
     }
 }

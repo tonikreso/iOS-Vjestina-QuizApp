@@ -41,7 +41,6 @@ final class QuizListPresenter {
     }
 
     func numberOfSections() -> Int {
-        print("\(sectionNames.count) sections")
         return sectionNames.count
     }
 
@@ -57,7 +56,6 @@ final class QuizListPresenter {
     }
 
     func titleForSection(_ section: Int) -> String {
-        print("section names \(sectionNames)")
         return sectionNames[section]
     }
 }

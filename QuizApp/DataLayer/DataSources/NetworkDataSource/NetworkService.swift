@@ -58,13 +58,11 @@ class NetworkService {
                 case.sucess(let value):
                     quizzes = value.quizzes
                 }
-                print("gotov")
                 group.leave()
                     
             }
         }
         group.wait()
-        print("tu sam")
         return quizzes
     }
     

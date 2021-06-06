@@ -22,11 +22,9 @@ class AppRouter: AppRouterProtocol {
     private let navigationController: UINavigationController!
     private var startTime: DispatchTime!
     private var endTime: DispatchTime!
-    private var presenter: QuizListPresenter!
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        createPresenter()
     }
     
     func setStartScreen(in window: UIWindow?) {
@@ -38,23 +36,24 @@ class AppRouter: AppRouterProtocol {
         window?.makeKeyAndVisible()
     }
     
-    private func createPresenter() {
+    private func createPresenter() -> QuizListPresenter {
         let coreDataContext = CoreDataStack(modelName: "QuizDatabaseDataSource").managedContext
         let quizDataRepository = QuizDataRepository(networkDataSource: QuizNetworkDataSource(), coreDataSource: QuizCoreDataSource(coreDataContext: coreDataContext))
         let quizUseCase = QuizUseCase(quizRepository: quizDataRepository)
         let presenter = QuizListPresenter(quizUseCase: quizUseCase, coordinator: self)
-        self.presenter = presenter
+        return presenter
+        
     }
     
     private func createSearchQuizViewController() -> SearchQuizViewController {
         let vc = SearchQuizViewController(router: self)
-        vc.addPresenter(presenter: presenter)
+        vc.addPresenter(presenter: createPresenter())
         return vc
     }
     
     private func createQuizzesViewController() -> QuizzesViewController{
         let tmpVC = QuizzesViewController(router: self)
-        tmpVC.addPresenter(presenter: presenter)
+        tmpVC.addPresenter(presenter: createPresenter())
         return tmpVC
     }
     
@@ -81,25 +80,17 @@ class AppRouter: AppRouterProtocol {
         let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         vc.setRouter(router: self)
         
-        let stackView = UIStackView()
-        stackView.spacing = 5
-        stackView.distribution = .fillEqually
+        let progressBarView = ProgressBarView()
+        progressBarView.initialize(numberOfQuestions: questions.count)
         
         var controllers = [UIViewController]()
-        for question in questions {
-            //TODO makni puno progressbarova
-            let progressBar = UIProgressView()
-            progressBar.trackTintColor = GlobalConstants.answerColor
+        for index in 0...(questions.count - 1) {
             
-            progressBar.progressTintColor = .white
-            progressBar.layer.cornerRadius = 4
-            stackView.addArrangedSubview(progressBar)
-            
-            let tmpVC = QuizViewController(pageController: vc, question: question, stackView: stackView)
+            let tmpVC = QuizViewController(pageController: vc, question: questions[index], progressBarView: progressBarView, displayText: "\(index + 1)/\(questions.count)")
             controllers.append(tmpVC)
         }
         
-        vc.addControllers(controllers: controllers)
+        vc.addControllersAndProgressBar(controllers: controllers, progressBar: progressBarView)
         startTime = DispatchTime.now() + Double(questions.count)*2.0
         navigationController.pushViewController(vc, animated: true)
     }

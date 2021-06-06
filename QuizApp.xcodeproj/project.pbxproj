@@ -29,6 +29,7 @@
 		31035F7C26454B8800302556 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31035F7B26454B8800302556 /* PageViewController.swift */; };
 		310395E926645BDA0061DB03 /* CDQuestion+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310395E726645BDA0061DB03 /* CDQuestion+CoreDataClass.swift */; };
 		310395F326690EAB0061DB03 /* SearchQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310395F226690EAB0061DB03 /* SearchQuizViewController.swift */; };
+		31039633266D44BA0061DB03 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31039632266D44BA0061DB03 /* ProgressBarView.swift */; };
 		3180C7A22662644D0055C627 /* QuizDatabaseDataSource.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31A650E62657FF9B007A3A05 /* QuizDatabaseDataSource.xcdatamodeld */; };
 		3180C7A7266265950055C627 /* FilterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3180C7A6266265950055C627 /* FilterSettings.swift */; };
 		3180C7AB266273ED0055C627 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3180C7AA266273ED0055C627 /* CoreDataStack.swift */; };
@@ -83,6 +84,7 @@
 		31035F7B26454B8800302556 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		310395E726645BDA0061DB03 /* CDQuestion+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuestion+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		310395F226690EAB0061DB03 /* SearchQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchQuizViewController.swift; path = QuizApp/viewControllerGroup/SearchQuizViewController.swift; sourceTree = SOURCE_ROOT; };
+		31039632266D44BA0061DB03 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		3180C7A6266265950055C627 /* FilterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettings.swift; sourceTree = "<group>"; };
 		3180C7AA266273ED0055C627 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3180C7AE266275360055C627 /* QuizRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				31035F1E26245AD000302556 /* MyTextField.swift */,
 				31035F54263DF4A700302556 /* CustomTableViewCell.swift */,
+				31039632266D44BA0061DB03 /* ProgressBarView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				31035F5B26402B7700302556 /* QuizViewController.swift in Sources */,
 				31035F4526262CC800302556 /* Question.swift in Sources */,
 				310395E926645BDA0061DB03 /* CDQuestion+CoreDataClass.swift in Sources */,
+				31039633266D44BA0061DB03 /* ProgressBarView.swift in Sources */,
 				31A650C12651370F007A3A05 /* GetQuizzesResponse.swift in Sources */,
 				31A6511B265ED365007A3A05 /* CDQuiz+CoreDataClass.swift in Sources */,
 				31A650D72657F2B1007A3A05 /* LoginStatus.swift in Sources */,

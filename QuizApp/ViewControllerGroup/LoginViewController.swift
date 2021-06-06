@@ -34,6 +34,48 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
         defineLayoutForViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        nameLabel.transform = CGAffineTransform(scaleX: 0, y: 0)
+        nameLabel.alpha = 0
+        emailTextField.transform = emailTextField.transform.translatedBy(x: -view.frame.width, y: 0)
+        passwordTextField.transform = passwordTextField.transform.translatedBy(x: -view.frame.width, y: 0)
+        button.transform = button.transform.translatedBy(x: -view.frame.width, y: 0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 1.5, delay: 0, options: .curveEaseInOut , animations: {
+            self.nameLabel.transform = .identity;
+            self.nameLabel.alpha = 1
+        })
+        UIView.animate(withDuration: 1.5, delay: 0, options: .curveEaseInOut , animations: {
+            self.emailTextField.transform = .identity
+        })
+        UIView.animate(withDuration: 1.5, delay: 0.25, options: .curveEaseInOut , animations: {
+            self.passwordTextField.transform = .identity
+        })
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseInOut , animations: {
+            self.button.transform = .identity
+        })
+    }
+    
+    private func startLeaving() {
+        UIView.animate(withDuration: 1.5, delay: 0, options: .curveEaseInOut , animations: {
+            self.nameLabel.transform = self.nameLabel.transform.translatedBy(x: 0, y: -self.view.frame.height)
+            
+        })
+        UIView.animate(withDuration: 1.5, delay: 0.25, options: .curveEaseInOut , animations: {
+            self.emailTextField.transform = self.emailTextField.transform.translatedBy(x: 0, y: -self.view.frame.height)
+            
+        })
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseInOut , animations: {
+            self.passwordTextField.transform = self.passwordTextField.transform.translatedBy(x: 0, y: -self.view.frame.height)
+
+        })
+        UIView.animate(withDuration: 1.5, delay: 0.75, options: .curveEaseInOut , animations: {
+            self.button.transform = self.button.transform.translatedBy(x: 0, y: -self.view.frame.height)
+        })
+    }
+    
     private func buildViews() {
         nameLabel = UILabel()
         view.addSubview(nameLabel)
@@ -133,16 +175,21 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
     }
     
     @objc func loginAction(sender: UIButton!) {
-        let loggedIn = NetworkService.singletonNetworkService.postLogin(username: self.emailTextField.text!, password: self.passwordTextField.text!)
-        
+        passwordTextField.endEditing(true)
+        let loggedIn = NetworkService.singletonNetworkService.postLogin(username: "username", password: "password")
         if loggedIn {
-            self.router.showQuizzesViewController()
+            
+            startLeaving()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.router.showQuizzesViewController()
+            }
         } else {
             self.present(self.alert, animated: true, completion:{
                 self.alert.view.superview?.isUserInteractionEnabled = true
                 self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissOnTapOutside)))
              })
         }
+        
     }
     
     @objc func dismissOnTapOutside(){
