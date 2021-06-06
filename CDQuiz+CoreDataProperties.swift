@@ -2,7 +2,7 @@
 //  CDQuiz+CoreDataProperties.swift
 //  QuizApp
 //
-//  Created by Kompjuter on 31/05/2021.
+//  Created by Kompjuter on 06/06/2021.
 //
 //
 

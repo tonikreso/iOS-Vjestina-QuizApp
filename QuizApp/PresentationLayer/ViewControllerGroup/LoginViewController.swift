@@ -176,7 +176,7 @@ class LoginViewController: SharedViewController, UITextFieldDelegate {
     
     @objc func loginAction(sender: UIButton!) {
         passwordTextField.endEditing(true)
-        let loggedIn = NetworkService.singletonNetworkService.postLogin(username: "username", password: "password")
+        let loggedIn = NetworkService.singletonNetworkService.postLogin(username: emailTextField.text!, password: passwordTextField.text!)
         if loggedIn {
             
             startLeaving()
