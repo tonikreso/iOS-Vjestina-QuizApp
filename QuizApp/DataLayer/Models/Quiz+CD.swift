@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 extension Quiz {
     
@@ -16,6 +17,7 @@ extension Quiz {
         category = QuizCategory(rawValue: entity.category!)!
         level = Int(entity.level)
         imageUrl = entity.imageUrl!
+        storedImageData = entity.image
         questions = entity.getQuestions()
         
     }
@@ -28,21 +30,10 @@ extension Quiz {
         entity.level = Int32(level)
         entity.imageUrl = imageUrl
         
-//        let fetch: NSFetchRequest<CDQuestion> = CDQuestion.fetchRequest()
-//        do {
-//            let results = try context.fetch(fetch)
-//            for result in results {
-//                entity.questions?.append(result)
-//            }
-//        } catch {
-//            //pass
-//        }
-        //let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Question")
-//        for index in 0...questions.count {
-//
-//            let cdQuestion = CDQuestion(context: context)
-//            questions[index].populate(cdQuestion)
-//            entity.questions?.append(cdQuestion)
-//        }
+        let url = URL(string: imageUrl)!
+        if let data = try? Data(contentsOf: url) {
+            entity.image = UIImage(data: data)?.pngData()
+        }
     }
+    
 }

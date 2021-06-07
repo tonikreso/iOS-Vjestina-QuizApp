@@ -4,7 +4,6 @@
 //
 //  Created by Kompjuter on 03/06/2021.
 //
-
 import Foundation
 import UIKit
 import PureLayout
@@ -31,6 +30,8 @@ class SearchQuizViewController: SharedViewController, UITableViewDataSource, UIT
     
     private func refreshQuizzes() {
         do {
+            print("tu sam")
+            presenter.filterQuizzes(filter: FilterSettings(searchText: searchField.text))
             try presenter.refreshQuizzes()
             tableView.reloadData()
         } catch {
@@ -45,7 +46,6 @@ class SearchQuizViewController: SharedViewController, UITableViewDataSource, UIT
         buildViews()
         styleViews()
         defineLayoutForViews()
-        refreshQuizzes()
     }
     
     private func buildViews() {
@@ -86,9 +86,7 @@ class SearchQuizViewController: SharedViewController, UITableViewDataSource, UIT
     }
     
     @objc func searchAction(sender: UIButton!) {
-        let filter = FilterSettings(searchText: searchField.text)
-        presenter.filterQuizzes(filter: filter)
-        tableView.reloadData()
+        refreshQuizzes()
     }
     
     private func defineLayoutForViews() {
@@ -98,10 +96,10 @@ class SearchQuizViewController: SharedViewController, UITableViewDataSource, UIT
         stackView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 20)
-        tableView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
-        tableView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
-        tableView.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 20)
+        tableView.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 10)
+        tableView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 10)
+        tableView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 10)
+        tableView.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,7 +111,6 @@ class SearchQuizViewController: SharedViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellforrowat")
         guard
             let cell = tableView.dequeueReusableCell(
             withIdentifier: cellIdentifier,

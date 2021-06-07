@@ -2,7 +2,7 @@
 //  CDQuiz+CoreDataClass.swift
 //  QuizApp
 //
-//  Created by Kompjuter on 26/05/2021.
+//  Created by Kompjuter on 06/06/2021.
 //
 //
 
@@ -13,12 +13,9 @@ import CoreData
 public class CDQuiz: NSManagedObject {
     func getQuestions() -> [Question] {
         var tmpList: [Question] = []
-        
-        
         for index in 1...self.questions!.count {
             tmpList.append(Question(with: (self.questions![index-1]) as! CDQuestion))
         }
         return tmpList
-        
     }
 }

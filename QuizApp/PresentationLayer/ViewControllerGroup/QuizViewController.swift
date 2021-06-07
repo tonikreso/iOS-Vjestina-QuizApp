@@ -12,9 +12,10 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
     
     private var pageController: PageViewController!
     private var question: Question!
+    private var questionNumber: String!
     
     private var numberOfQuestionLabel: UILabel!
-    private var stackView: UIStackView!
+    private var progressBarView: ProgressBarView!
     private var answerButtonArray: [UIButton]!
     private var questionLabel: UILabel!
     private var answer1: UIButton!
@@ -22,11 +23,12 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
     private var answer3: UIButton!
     private var answer4: UIButton!
     
-    convenience init(pageController: PageViewController, question: Question, stackView: UIStackView) {
+    convenience init(pageController: PageViewController, question: Question, progressBarView: ProgressBarView, displayText: String) {
         self.init()
         self.pageController = pageController
         self.question = question
-        self.stackView = stackView
+        self.progressBarView = progressBarView
+        self.questionNumber = displayText
     }
      
     override func viewDidLoad() {
@@ -40,7 +42,7 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
         numberOfQuestionLabel = UILabel()
         view.addSubview(numberOfQuestionLabel)
         
-        view.addSubview(stackView)
+        view.addSubview(progressBarView)
         
         questionLabel = UILabel()
         view.addSubview(questionLabel)
@@ -58,7 +60,7 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
     }
     
     private func styleViews() {
-        numberOfQuestionLabel.text = "\(pageController.currentIndex + 1)/\(pageController.getNumberOfChildren())"
+        numberOfQuestionLabel.text = questionNumber
         numberOfQuestionLabel.textColor = .white
         
         questionLabel.textColor = .white
@@ -78,9 +80,6 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
         answer3.tag = 2
         answer4.tag = 3
         
-        let tmpProgressView = stackView.subviews[pageController.currentIndex] as? UIProgressView
-        tmpProgressView?.setProgress(1, animated: false)
-        
         showNextQuestion()
     }
     
@@ -88,11 +87,11 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
         numberOfQuestionLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 15)
         numberOfQuestionLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
         
-        stackView.autoPinEdge(.top, to: .bottom, of: numberOfQuestionLabel, withOffset: 10)
-        stackView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
-        stackView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
+        progressBarView.autoPinEdge(.top, to: .bottom, of: numberOfQuestionLabel, withOffset: 10)
+        progressBarView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
+        progressBarView.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
         
-        questionLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 25)
+        questionLabel.autoPinEdge(.top, to: .bottom, of: progressBarView, withOffset: 25)
         questionLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 15)
         questionLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 15)
         
@@ -127,8 +126,6 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
             answer.isEnabled = false
         }
         
-        let tmpProgressView = stackView.subviews[pageController.currentIndex] as? UIProgressView
-        
         var isCorrect = true
         let correctIndex = question.correctAnswer
         answerButtonArray[correctIndex].backgroundColor = .systemGreen
@@ -137,14 +134,10 @@ class QuizViewController: SharedViewController, UITextFieldDelegate {
         if correctIndex != sender.tag {
             answerButtonArray[sender.tag].backgroundColor = .systemRed
             isCorrect = false
-            tmpProgressView?.progressTintColor = .systemRed
-        } else {
-            tmpProgressView?.progressTintColor = .systemGreen
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.pageController.goToNext(isCorrect: isCorrect)
-        }
+        self.pageController.goToNext(isCorrect: isCorrect)
+        
     }
     
 }

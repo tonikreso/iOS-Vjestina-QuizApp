@@ -191,7 +191,6 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellforrowat")
         guard
             let cell = tableView.dequeueReusableCell(
             withIdentifier: cellIdentifier,

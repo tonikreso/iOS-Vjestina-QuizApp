@@ -9,6 +9,7 @@
     <entity name="CDQuiz" representedClassName="CDQuiz" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="quizdescription" optional="YES" attributeType="String"/>
@@ -17,6 +18,6 @@
     </entity>
     <elements>
         <element name="CDQuestion" positionX="-54" positionY="45" width="128" height="103"/>
-        <element name="CDQuiz" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="CDQuiz" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

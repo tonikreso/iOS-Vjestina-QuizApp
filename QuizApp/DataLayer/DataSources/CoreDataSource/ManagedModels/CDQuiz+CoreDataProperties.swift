@@ -2,7 +2,7 @@
 //  CDQuiz+CoreDataProperties.swift
 //  QuizApp
 //
-//  Created by Kompjuter on 31/05/2021.
+//  Created by Kompjuter on 07/06/2021.
 //
 //
 
@@ -18,10 +18,11 @@ extension CDQuiz {
 
     @NSManaged public var category: String?
     @NSManaged public var identifier: Int32
-    @NSManaged public var imageUrl: String?
     @NSManaged public var level: Int32
     @NSManaged public var quizdescription: String?
     @NSManaged public var title: String?
+    @NSManaged public var image: Data?
+    @NSManaged public var imageUrl: String?
     @NSManaged public var questions: NSOrderedSet?
 
 }
