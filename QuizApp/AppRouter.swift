@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 protocol AppRouterProtocol {
     func setStartScreen(in window: UIWindow?)
@@ -21,9 +22,11 @@ class AppRouter: AppRouterProtocol {
     private let navigationController: UINavigationController!
     private var startTime: DispatchTime!
     private var endTime: DispatchTime!
+    private var presenter: QuizListPresenter!
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        createPresenter()
     }
     
     func setStartScreen(in window: UIWindow?) {
@@ -35,14 +38,36 @@ class AppRouter: AppRouterProtocol {
         window?.makeKeyAndVisible()
     }
     
+    private func createPresenter() {
+        let coreDataContext = CoreDataStack(modelName: "QuizDatabaseDataSource").managedContext
+        let quizDataRepository = QuizDataRepository(networkDataSource: QuizNetworkDataSource(), coreDataSource: QuizCoreDataSource(coreDataContext: coreDataContext))
+        let quizUseCase = QuizUseCase(quizRepository: quizDataRepository)
+        let presenter = QuizListPresenter(quizUseCase: quizUseCase, coordinator: self)
+        self.presenter = presenter
+    }
+    
+    private func createSearchQuizViewController() -> SearchQuizViewController {
+        let vc = SearchQuizViewController(router: self)
+        vc.addPresenter(presenter: presenter)
+        return vc
+    }
+    
+    private func createQuizzesViewController() -> QuizzesViewController{
+        let tmpVC = QuizzesViewController(router: self)
+        tmpVC.addPresenter(presenter: presenter)
+        return tmpVC
+    }
+    
     func showQuizzesViewController() {
-        let quizzesVC = QuizzesViewController(router: self)
+        let quizzesVC = createQuizzesViewController()
         quizzesVC.title = "Quizzes"
         let settingsVC = SettingViewController(router: self)
         settingsVC.title = "Settings"
+        let searchVC = createSearchQuizViewController()
+        searchVC.title = "Search"
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [quizzesVC, settingsVC]
+        tabBarController.viewControllers = [quizzesVC, settingsVC, searchVC]
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     

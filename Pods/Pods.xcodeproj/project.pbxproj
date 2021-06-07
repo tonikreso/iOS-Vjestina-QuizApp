@@ -3,67 +3,91 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		29F477B426E97AC81C2D867965814EE7 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CE22508875A0D08F4828B1309EE3DEF1 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3FEA79AB938D263EDD0576109321847D /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AC65611F73E1FFBCF46C219B705712 /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		516464DB7004848131A1A280E725BB30 /* NSLayoutConstraint+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F66714670BEA2F02A67149FFDEEDEA6 /* NSLayoutConstraint+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		867AB15776227B579864DC6F4DDF104F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		90E11860B6F9BDC73E00A1AF0116A0BA /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 72503E8459A11CE9484D8DE1FAD02FB2 /* ALView+PureLayout.m */; };
-		AE028A669BDCC596930B9CD7B34C231D /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 612A8F178DE352A805ACD25C44C62955 /* NSArray+PureLayout.m */; };
-		C083E0C1A52728A974A958C249DFBFCC /* PureLayout+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 950BFB13C3F461C7AC6E88BDA4CCC3F1 /* PureLayout+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CAEF5A694258EA759B5AC90CBEB72CCC /* PureLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3391B4FA48EC4B1EC8D9E68BE9142FFB /* PureLayout-dummy.m */; };
-		CE4A4613E048E61DCDEB6B4C6AA5487E /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 2810148A7EBC87627DB1E287B24403AE /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CFCF459361F16ED33F8B01ADB01199E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		D64335AFA176E95D8A1892337EDB9819 /* PureLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 28B207639271F0B3AD2D7C527B48C530 /* PureLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DBF45D59546F58E4F8118B65DBC9B0F4 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7C0824DBFBE95FCB8AA094AA709D0E /* NSLayoutConstraint+PureLayout.m */; };
-		EC6C624C95C108C4F58BDB40787D5E9E /* Pods-QuizApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4969DAB26BF70CAAA70ECF3BC7BEADB1 /* Pods-QuizApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 60C6D25262D32268BEDE0B7F4224B3D0 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5F63536709103B36C13ED1D57DB9905 /* Pods-QuizApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A3886A6CEF6586061506698844C74 /* Pods-QuizApp-dummy.m */; };
+		165816E10F031A2BB600A35ACB23C61B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EFBC70A9424C9EB8A51A252C811B79 /* Reachability.m */; };
+		1FDF6FD7CF96B315FF19342F739EE607 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D229D67D438AE4CED336FF9E514BAE /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29F477B426E97AC81C2D867965814EE7 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 48AD86E4D68539D69BA18B06C60E9683 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3FEA79AB938D263EDD0576109321847D /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 0424A1D2800D921F23D4E552666401AF /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		516464DB7004848131A1A280E725BB30 /* NSLayoutConstraint+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC2BF790FFE4F0444A6709067420CBC /* NSLayoutConstraint+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D614BBA844FCC1AED0AA36E5A819050 /* Reachability-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CD5F84E747874FB51EDA8D5051BBBB /* Reachability-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90E11860B6F9BDC73E00A1AF0116A0BA /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 862BA4E62AA04AE348AD86016092B629 /* ALView+PureLayout.m */; };
+		92666F5E4C7D1E283EE3C703E69D5CB0 /* Reachability-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE4AFFA1A041B0531F62BF40B9303A2 /* Reachability-dummy.m */; };
+		9600F4C3A98F0209C0887A36C6D38D16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30453446C5310EA114B978294858C9A5 /* Foundation.framework */; };
+		A9B7A482E0409D0437AEE26B7F625069 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DE96DC511BD1CE643E8E9A8CE72374 /* SystemConfiguration.framework */; };
+		AE028A669BDCC596930B9CD7B34C231D /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE27BB289AB46C6E0F3361C78AD65BB /* NSArray+PureLayout.m */; };
+		C083E0C1A52728A974A958C249DFBFCC /* PureLayout+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B39076A3D3CEC950F4E68D03484E50 /* PureLayout+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAEF5A694258EA759B5AC90CBEB72CCC /* PureLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B402B0E9BB488FE3A850EDF1D589BF /* PureLayout-dummy.m */; };
+		CE4A4613E048E61DCDEB6B4C6AA5487E /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 085AD85A264B12AD1705A5E66B71DC70 /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFCF459361F16ED33F8B01ADB01199E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30453446C5310EA114B978294858C9A5 /* Foundation.framework */; };
+		D64335AFA176E95D8A1892337EDB9819 /* PureLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD3E7812B75E3011B851D90470C37B /* PureLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBF45D59546F58E4F8118B65DBC9B0F4 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A395974E17E777E1BCB296F936D8978 /* NSLayoutConstraint+PureLayout.m */; };
+		E1D23E25BE4389406503782C01512386 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30453446C5310EA114B978294858C9A5 /* Foundation.framework */; };
+		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = B6D0FC530F637A74540A7D0811B50F89 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0817EFC00F60B4FBC893110D6F39EBC /* Pods-QuizApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A3886A6CEF6586061506698844C74 /* Pods-QuizApp-dummy.m */; };
+		FB177DAB8BF3467BF524F3C6F0B9D7AD /* Pods-QuizApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4969DAB26BF70CAAA70ECF3BC7BEADB1 /* Pods-QuizApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DAC0DD5E193526477237DE5E8E61ADBB /* PBXContainerItemProxy */ = {
+		0788180D9B0FF07A115B7C7369469A93 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 06F5CDD6235E25837519792853B145A1;
 			remoteInfo = PureLayout;
 		};
+		8B9BB65C567FCD3E0A28859F357626AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAA047C0F5E4106F3904E8497FA17F97;
+			remoteInfo = Reachability;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0424A1D2800D921F23D4E552666401AF /* NSArray+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		085AD85A264B12AD1705A5E66B71DC70 /* PureLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = "<group>"; };
 		1017E0DBED64F7C37A9F49909E6E16EB /* Pods-QuizApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QuizApp.release.xcconfig"; sourceTree = "<group>"; };
+		13A2CC7E9F74624D29C7A0A717AE0AA8 /* Reachability.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Reachability.release.xcconfig; sourceTree = "<group>"; };
+		17EFBC70A9424C9EB8A51A252C811B79 /* Reachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		18DE96DC511BD1CE643E8E9A8CE72374 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		19B402B0E9BB488FE3A850EDF1D589BF /* PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PureLayout-dummy.m"; sourceTree = "<group>"; };
+		1A395974E17E777E1BCB296F936D8978 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		22792C5DD401FAC38896A15364C1896B /* Reachability.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Reachability.modulemap; sourceTree = "<group>"; };
 		2415DEA59F6EB1B101FFD286F196C2B3 /* Pods-QuizApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QuizApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2508BE4AB5C04D787CAA8AE83BA0A7B6 /* Pods-QuizApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-QuizApp-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2810148A7EBC87627DB1E287B24403AE /* PureLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = "<group>"; };
-		28B207639271F0B3AD2D7C527B48C530 /* PureLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-umbrella.h"; sourceTree = "<group>"; };
+		27954865BE7FBEABF497DED73E446707 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
 		2F4243715465A78BB63A7FF644080D58 /* Pods-QuizApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-QuizApp-Info.plist"; sourceTree = "<group>"; };
-		3391B4FA48EC4B1EC8D9E68BE9142FFB /* PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PureLayout-dummy.m"; sourceTree = "<group>"; };
+		30453446C5310EA114B978294858C9A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3F22EF2F443582196B9FAF77F302AE8F /* Pods-QuizApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-QuizApp.modulemap"; sourceTree = "<group>"; };
+		400FF55D0451E7A8F33A3D0D3E11C1B9 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		454A3886A6CEF6586061506698844C74 /* Pods-QuizApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-QuizApp-dummy.m"; sourceTree = "<group>"; };
-		45AC65611F73E1FFBCF46C219B705712 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		48AD86E4D68539D69BA18B06C60E9683 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
 		4969DAB26BF70CAAA70ECF3BC7BEADB1 /* Pods-QuizApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-QuizApp-umbrella.h"; sourceTree = "<group>"; };
+		50F746CE9FDAFE8EB3A91C375680CE21 /* PureLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PureLayout.modulemap; sourceTree = "<group>"; };
 		532564DD37E6D3BF9BAC19C2EC6F5AF3 /* Pods_QuizApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_QuizApp.framework; path = "Pods-QuizApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		60C6D25262D32268BEDE0B7F4224B3D0 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
-		612A8F178DE352A805ACD25C44C62955 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		5BE4AFFA1A041B0531F62BF40B9303A2 /* Reachability-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Reachability-dummy.m"; sourceTree = "<group>"; };
 		712E2A7E516FAF73D974A7856A266F48 /* Pods-QuizApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-QuizApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		72503E8459A11CE9484D8DE1FAD02FB2 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7F66714670BEA2F02A67149FFDEEDEA6 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
-		950BFB13C3F461C7AC6E88BDA4CCC3F1 /* PureLayout+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = "<group>"; };
+		7BE27BB289AB46C6E0F3361C78AD65BB /* NSArray+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		83EAB4CCEFC2238B30CE87945A9CC863 /* PureLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-prefix.pch"; sourceTree = "<group>"; };
+		84398F0C121361DD5DABB3173151523C /* PureLayout-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PureLayout-Info.plist"; sourceTree = "<group>"; };
+		862BA4E62AA04AE348AD86016092B629 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
+		89D28123AF86654A2CD1D3532F1D9EFC /* Reachability.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Reachability.debug.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AB586A7A8FDC1784D640F872D02B90DB /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
-		B83D6B9B2B530259D869B941C15ADC5E /* PureLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-prefix.pch"; sourceTree = "<group>"; };
-		B86FD6AAE4C8C9F226BEEC1908F6633C /* PureLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PureLayout.modulemap; sourceTree = "<group>"; };
-		BF7C0824DBFBE95FCB8AA094AA709D0E /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
-		CE22508875A0D08F4828B1309EE3DEF1 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
+		ABC2BF790FFE4F0444A6709067420CBC /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		B0BD3E7812B75E3011B851D90470C37B /* PureLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-umbrella.h"; sourceTree = "<group>"; };
+		B6D0FC530F637A74540A7D0811B50F89 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
+		C0F67FB6F6BEB91CEBD11192E8FA7EC7 /* Reachability-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Reachability-Info.plist"; sourceTree = "<group>"; };
+		D1D229D67D438AE4CED336FF9E514BAE /* Reachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D3CD5F84E747874FB51EDA8D5051BBBB /* Reachability-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Reachability-umbrella.h"; sourceTree = "<group>"; };
+		D6C265828D4B572D2E7C02DAA4B91D98 /* PureLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.debug.xcconfig; sourceTree = "<group>"; };
+		E369F10814897C840FE1BAB34C2EEFEB /* Reachability-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Reachability-prefix.pch"; sourceTree = "<group>"; };
 		E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PureLayout.framework; path = PureLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7DCC38D05701870DE79B05EB75F03D6 /* Pods-QuizApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-QuizApp-frameworks.sh"; sourceTree = "<group>"; };
-		EA1351B1C56E2B8DDC5FB9F2CD309CB0 /* PureLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.debug.xcconfig; sourceTree = "<group>"; };
-		FDF240BD0619498931707A316733BDCA /* PureLayout-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PureLayout-Info.plist"; sourceTree = "<group>"; };
+		E8B39076A3D3CEC950F4E68D03484E50 /* PureLayout+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,11 +99,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1BC17AA156EEDA68CBFE4FE4378A88F /* Frameworks */ = {
+		2759171AEABFCD8AAECB0E395606E000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				867AB15776227B579864DC6F4DDF104F /* Foundation.framework in Frameworks */,
+				9600F4C3A98F0209C0887A36C6D38D16 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E2491E56FE9C8E833648DF3B4AD9DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D23E25BE4389406503782C01512386 /* Foundation.framework in Frameworks */,
+				A9B7A482E0409D0437AEE26B7F625069 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,48 +136,100 @@
 			path = "Target Support Files/Pods-QuizApp";
 			sourceTree = "<group>";
 		};
-		04A2C822144CEC05EB5AD23AE0036229 /* Pods */ = {
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EAC9B8AB680C745122A5E81420A8B977 /* PureLayout */,
+				A651368EF97F3D9B9BAA0C0FD537DD81 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C4A2C65CCAE512BC2C1025DF5C1A9F5 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				D1D229D67D438AE4CED336FF9E514BAE /* Reachability.h */,
+				17EFBC70A9424C9EB8A51A252C811B79 /* Reachability.m */,
+				BF7A37C838236DB04344FC759952E46B /* Support Files */,
+			);
+			name = Reachability;
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		5E14BF04F4DFEC348509A9B69AE9D7D2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D53C78E25EE0EA39D6476D343EB9EA03 /* PureLayout */,
+				2C4A2C65CCAE512BC2C1025DF5C1A9F5 /* Reachability */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+		644F566CBB0BFD15E2D7D8A597441091 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+				50F746CE9FDAFE8EB3A91C375680CE21 /* PureLayout.modulemap */,
+				19B402B0E9BB488FE3A850EDF1D589BF /* PureLayout-dummy.m */,
+				84398F0C121361DD5DABB3173151523C /* PureLayout-Info.plist */,
+				83EAB4CCEFC2238B30CE87945A9CC863 /* PureLayout-prefix.pch */,
+				B0BD3E7812B75E3011B851D90470C37B /* PureLayout-umbrella.h */,
+				D6C265828D4B572D2E7C02DAA4B91D98 /* PureLayout.debug.xcconfig */,
+				27954865BE7FBEABF497DED73E446707 /* PureLayout.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PureLayout";
+			sourceTree = "<group>";
+		};
+		A651368EF97F3D9B9BAA0C0FD537DD81 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				30453446C5310EA114B978294858C9A5 /* Foundation.framework */,
+				18DE96DC511BD1CE643E8E9A8CE72374 /* SystemConfiguration.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		9630B03434DE911E653C69641689D8FE /* Products */ = {
+		BF7A37C838236DB04344FC759952E46B /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				532564DD37E6D3BF9BAC19C2EC6F5AF3 /* Pods_QuizApp.framework */,
-				E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */,
+				22792C5DD401FAC38896A15364C1896B /* Reachability.modulemap */,
+				5BE4AFFA1A041B0531F62BF40B9303A2 /* Reachability-dummy.m */,
+				C0F67FB6F6BEB91CEBD11192E8FA7EC7 /* Reachability-Info.plist */,
+				E369F10814897C840FE1BAB34C2EEFEB /* Reachability-prefix.pch */,
+				D3CD5F84E747874FB51EDA8D5051BBBB /* Reachability-umbrella.h */,
+				89D28123AF86654A2CD1D3532F1D9EFC /* Reachability.debug.xcconfig */,
+				13A2CC7E9F74624D29C7A0A717AE0AA8 /* Reachability.release.xcconfig */,
 			);
-			name = Products;
+			name = "Support Files";
+			path = "../Target Support Files/Reachability";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				04A2C822144CEC05EB5AD23AE0036229 /* Pods */,
-				9630B03434DE911E653C69641689D8FE /* Products */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				5E14BF04F4DFEC348509A9B69AE9D7D2 /* Pods */,
+				DC20611FB17F423619490BE518EEA343 /* Products */,
 				DC06AD61ED3C12DF15CD6DCF5B8EFA58 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		D53C78E25EE0EA39D6476D343EB9EA03 /* PureLayout */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				B6D0FC530F637A74540A7D0811B50F89 /* ALView+PureLayout.h */,
+				862BA4E62AA04AE348AD86016092B629 /* ALView+PureLayout.m */,
+				0424A1D2800D921F23D4E552666401AF /* NSArray+PureLayout.h */,
+				7BE27BB289AB46C6E0F3361C78AD65BB /* NSArray+PureLayout.m */,
+				ABC2BF790FFE4F0444A6709067420CBC /* NSLayoutConstraint+PureLayout.h */,
+				1A395974E17E777E1BCB296F936D8978 /* NSLayoutConstraint+PureLayout.m */,
+				48AD86E4D68539D69BA18B06C60E9683 /* PureLayout.h */,
+				E8B39076A3D3CEC950F4E68D03484E50 /* PureLayout+Internal.h */,
+				085AD85A264B12AD1705A5E66B71DC70 /* PureLayoutDefines.h */,
+				644F566CBB0BFD15E2D7D8A597441091 /* Support Files */,
 			);
-			name = Frameworks;
+			name = PureLayout;
+			path = PureLayout;
 			sourceTree = "<group>";
 		};
 		DC06AD61ED3C12DF15CD6DCF5B8EFA58 /* Targets Support Files */ = {
@@ -155,37 +240,14 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		EAC9B8AB680C745122A5E81420A8B977 /* PureLayout */ = {
+		DC20611FB17F423619490BE518EEA343 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60C6D25262D32268BEDE0B7F4224B3D0 /* ALView+PureLayout.h */,
-				72503E8459A11CE9484D8DE1FAD02FB2 /* ALView+PureLayout.m */,
-				45AC65611F73E1FFBCF46C219B705712 /* NSArray+PureLayout.h */,
-				612A8F178DE352A805ACD25C44C62955 /* NSArray+PureLayout.m */,
-				7F66714670BEA2F02A67149FFDEEDEA6 /* NSLayoutConstraint+PureLayout.h */,
-				BF7C0824DBFBE95FCB8AA094AA709D0E /* NSLayoutConstraint+PureLayout.m */,
-				CE22508875A0D08F4828B1309EE3DEF1 /* PureLayout.h */,
-				950BFB13C3F461C7AC6E88BDA4CCC3F1 /* PureLayout+Internal.h */,
-				2810148A7EBC87627DB1E287B24403AE /* PureLayoutDefines.h */,
-				FB641262D1994F2A050C1333C75F68A5 /* Support Files */,
+				532564DD37E6D3BF9BAC19C2EC6F5AF3 /* Pods_QuizApp.framework */,
+				E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */,
+				400FF55D0451E7A8F33A3D0D3E11C1B9 /* Reachability.framework */,
 			);
-			name = PureLayout;
-			path = PureLayout;
-			sourceTree = "<group>";
-		};
-		FB641262D1994F2A050C1333C75F68A5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B86FD6AAE4C8C9F226BEEC1908F6633C /* PureLayout.modulemap */,
-				3391B4FA48EC4B1EC8D9E68BE9142FFB /* PureLayout-dummy.m */,
-				FDF240BD0619498931707A316733BDCA /* PureLayout-Info.plist */,
-				B83D6B9B2B530259D869B941C15ADC5E /* PureLayout-prefix.pch */,
-				28B207639271F0B3AD2D7C527B48C530 /* PureLayout-umbrella.h */,
-				EA1351B1C56E2B8DDC5FB9F2CD309CB0 /* PureLayout.debug.xcconfig */,
-				AB586A7A8FDC1784D640F872D02B90DB /* PureLayout.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/PureLayout";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,11 +267,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5BCBC6D315440C7C67AB1091F12740D7 /* Headers */ = {
+		5482B92B4041F2CA2F8B9666AD4DA1DB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC6C624C95C108C4F58BDB40787D5E9E /* Pods-QuizApp-umbrella.h in Headers */,
+				5D614BBA844FCC1AED0AA36E5A819050 /* Reachability-umbrella.h in Headers */,
+				1FDF6FD7CF96B315FF19342F739EE607 /* Reachability.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59EEDEE86F65B62DF46F392758C28558 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB177DAB8BF3467BF524F3C6F0B9D7AD /* Pods-QuizApp-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,21 +307,40 @@
 		};
 		3B42A8F6148E5F2773D4A1B11D59DB6D /* Pods-QuizApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67FB317DAEE841CDA1957354B1E83270 /* Build configuration list for PBXNativeTarget "Pods-QuizApp" */;
+			buildConfigurationList = 0F17738BF884A89973D9E8F92D2DF448 /* Build configuration list for PBXNativeTarget "Pods-QuizApp" */;
 			buildPhases = (
-				5BCBC6D315440C7C67AB1091F12740D7 /* Headers */,
-				160499DD017B6C7ECCAF68C27A0406AA /* Sources */,
-				E1BC17AA156EEDA68CBFE4FE4378A88F /* Frameworks */,
-				7B0ADBF6E646BC61EE78D6F2C0E9CCEB /* Resources */,
+				59EEDEE86F65B62DF46F392758C28558 /* Headers */,
+				E1ECA884AAE6DDFA3D66DD8F6E6E9FEE /* Sources */,
+				2759171AEABFCD8AAECB0E395606E000 /* Frameworks */,
+				A00698C4A099FF12BC7F568EBF4EB653 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E98BDE330B32AC5DBE28B512F55ADFF4 /* PBXTargetDependency */,
+				B76F9CD7C3E9ACDBEA7C88408E735386 /* PBXTargetDependency */,
+				6AFF01D6885DAD87E0667A4F2E1384BA /* PBXTargetDependency */,
 			);
 			name = "Pods-QuizApp";
 			productName = "Pods-QuizApp";
 			productReference = 532564DD37E6D3BF9BAC19C2EC6F5AF3 /* Pods_QuizApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CAA047C0F5E4106F3904E8497FA17F97 /* Reachability */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F32CA1ECBBAD93DE1A0B2999C38EABC5 /* Build configuration list for PBXNativeTarget "Reachability" */;
+			buildPhases = (
+				5482B92B4041F2CA2F8B9666AD4DA1DB /* Headers */,
+				72E70FE6F073379B3A96AAB861E0231E /* Sources */,
+				F8E2491E56FE9C8E833648DF3B4AD9DF /* Frameworks */,
+				2FBB80F8954F668EBC04240928EB2118 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Reachability;
+			productName = Reachability;
+			productReference = 400FF55D0451E7A8F33A3D0D3E11C1B9 /* Reachability.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -263,7 +353,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -271,17 +361,25 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 9630B03434DE911E653C69641689D8FE /* Products */;
+			productRefGroup = DC20611FB17F423619490BE518EEA343 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3B42A8F6148E5F2773D4A1B11D59DB6D /* Pods-QuizApp */,
 				06F5CDD6235E25837519792853B145A1 /* PureLayout */,
+				CAA047C0F5E4106F3904E8497FA17F97 /* Reachability */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2FBB80F8954F668EBC04240928EB2118 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		693D6118C8EA30DA148B4891A30AFD5E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -289,7 +387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B0ADBF6E646BC61EE78D6F2C0E9CCEB /* Resources */ = {
+		A00698C4A099FF12BC7F568EBF4EB653 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,11 +397,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		160499DD017B6C7ECCAF68C27A0406AA /* Sources */ = {
+		72E70FE6F073379B3A96AAB861E0231E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5F63536709103B36C13ED1D57DB9905 /* Pods-QuizApp-dummy.m in Sources */,
+				92666F5E4C7D1E283EE3C703E69D5CB0 /* Reachability-dummy.m in Sources */,
+				165816E10F031A2BB600A35ACB23C61B /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,21 +417,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1ECA884AAE6DDFA3D66DD8F6E6E9FEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0817EFC00F60B4FBC893110D6F39EBC /* Pods-QuizApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E98BDE330B32AC5DBE28B512F55ADFF4 /* PBXTargetDependency */ = {
+		6AFF01D6885DAD87E0667A4F2E1384BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Reachability;
+			target = CAA047C0F5E4106F3904E8497FA17F97 /* Reachability */;
+			targetProxy = 8B9BB65C567FCD3E0A28859F357626AC /* PBXContainerItemProxy */;
+		};
+		B76F9CD7C3E9ACDBEA7C88408E735386 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PureLayout;
 			target = 06F5CDD6235E25837519792853B145A1 /* PureLayout */;
-			targetProxy = DAC0DD5E193526477237DE5E8E61ADBB /* PBXContainerItemProxy */;
+			targetProxy = 0788180D9B0FF07A115B7C7369469A93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0BF74671749B9EC575A614A19A961622 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA1351B1C56E2B8DDC5FB9F2CD309CB0 /* PureLayout.debug.xcconfig */;
+			baseConfigurationReference = D6C265828D4B572D2E7C02DAA4B91D98 /* PureLayout.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -366,7 +479,7 @@
 		};
 		15E6720A421C5A556E8008E359C0B602 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB586A7A8FDC1784D640F872D02B90DB /* PureLayout.release.xcconfig */;
+			baseConfigurationReference = 27954865BE7FBEABF497DED73E446707 /* PureLayout.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -399,9 +512,9 @@
 			};
 			name = Release;
 		};
-		37ACD4ECBC896B13329F8D6A8E304E05 /* Release */ = {
+		4E7F4B3B7C38F2FD737C31473202E198 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1017E0DBED64F7C37A9F49909E6E16EB /* Pods-QuizApp.release.xcconfig */;
+			baseConfigurationReference = 2415DEA59F6EB1B101FFD286F196C2B3 /* Pods-QuizApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -431,11 +544,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		71243899B61152433AAE34EE86456EE7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -565,9 +677,78 @@
 			};
 			name = Debug;
 		};
-		8A3C90C3F65AA0B63AA55FC921AA146A /* Debug */ = {
+		B2D2B31E7A54EF4C97EEE40D2B781967 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2415DEA59F6EB1B101FFD286F196C2B3 /* Pods-QuizApp.debug.xcconfig */;
+			baseConfigurationReference = 13A2CC7E9F74624D29C7A0A717AE0AA8 /* Reachability.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Reachability/Reachability-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Reachability/Reachability.modulemap";
+				PRODUCT_MODULE_NAME = Reachability;
+				PRODUCT_NAME = Reachability;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F46FB54084CFB7D073BB3101F75F5AD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89D28123AF86654A2CD1D3532F1D9EFC /* Reachability.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Reachability/Reachability-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Reachability/Reachability.modulemap";
+				PRODUCT_MODULE_NAME = Reachability;
+				PRODUCT_NAME = Reachability;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F6897BCCBB09173F7A75CB034E418680 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1017E0DBED64F7C37A9F49909E6E16EB /* Pods-QuizApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -597,14 +778,24 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0F17738BF884A89973D9E8F92D2DF448 /* Build configuration list for PBXNativeTarget "Pods-QuizApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E7F4B3B7C38F2FD737C31473202E198 /* Debug */,
+				F6897BCCBB09173F7A75CB034E418680 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -614,20 +805,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67FB317DAEE841CDA1957354B1E83270 /* Build configuration list for PBXNativeTarget "Pods-QuizApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A3C90C3F65AA0B63AA55FC921AA146A /* Debug */,
-				37ACD4ECBC896B13329F8D6A8E304E05 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		97C7148CC41A8E2AE2997FBA410BDDCE /* Build configuration list for PBXNativeTarget "PureLayout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BF74671749B9EC575A614A19A961622 /* Debug */,
 				15E6720A421C5A556E8008E359C0B602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F32CA1ECBBAD93DE1A0B2999C38EABC5 /* Build configuration list for PBXNativeTarget "Reachability" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F46FB54084CFB7D073BB3101F75F5AD2 /* Debug */,
+				B2D2B31E7A54EF4C97EEE40D2B781967 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -14,7 +14,9 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     
     private var scrollView: UIScrollView!
     private var nameLabel: UILabel!
-    private var getQuizButton: UIButton!
+    //private var getQuizButton: UIButton!
+    
+    private var presenter: QuizListPresenter!
     private var funFactLabel: UILabel!
     private var infoButton: UIButton!
     private var tableView: UITableView!
@@ -22,6 +24,7 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     private var categoryDict: [QuizCategory: [Quiz]]!
     private var indexDict: [Int: QuizCategory]!
     private var funFactText: UILabel!
+    
     
     let cellIdentifier = "cellId"
     
@@ -32,11 +35,28 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         self.router = router
     }
     
+    
+    func addPresenter(presenter: QuizListPresenter) {
+        self.presenter = presenter
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buildViews()
         styleViews()
         defineLayoutForViews()
+        refreshQuizzes()
+    }
+    
+    private func refreshQuizzes() {
+        do {
+            try presenter.refreshQuizzes()
+            tableView.reloadData()
+        } catch {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
     
     private func buildViews() {
@@ -46,8 +66,8 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         nameLabel = UILabel()
         scrollView.addSubview(nameLabel)
         
-        getQuizButton = UIButton()
-        scrollView.addSubview(getQuizButton)
+//        getQuizButton = UIButton()
+//        scrollView.addSubview(getQuizButton)
         
         funFactLabel = UILabel()
         scrollView.addSubview(funFactLabel)
@@ -64,6 +84,7 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.delegate = self
         scrollView.addSubview(tableView)
         
+        
         categoryDict = [QuizCategory: [Quiz]]()
         indexDict = [Int: QuizCategory]()
     }
@@ -75,22 +96,20 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         nameLabel.textColor = .white
         nameLabel.textAlignment = .center
         
-        getQuizButton.backgroundColor = .white
-        getQuizButton.setAttributedTitle(NSAttributedString(string: "Get Quiz", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
-        getQuizButton.addTarget(self, action: #selector(getQuizzes), for: .touchUpInside)
+//        getQuizButton.backgroundColor = .white
+//        getQuizButton.setAttributedTitle(NSAttributedString(string: "Get Quiz", attributes: [NSAttributedString.Key.foregroundColor: GlobalConstants.gradientColor1, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)]), for: .normal)
+//        getQuizButton.addTarget(self, action: #selector(getQuizzes), for: .touchUpInside)
         
-        funFactLabel.text = "Fun fact"
+        //funFactLabel.text = "Fun fact"
         funFactLabel.font = UIFont(name: nameLabelFont, size: 25.0)
         funFactLabel.textColor = .white
-        funFactLabel.isHidden = true
         
         funFactText.font = UIFont(name: nameLabelFont, size: 16)
         funFactText.textColor = .white
-        funFactText.isHidden = true
         
-        tableView.isHidden = true
         tableView.rowHeight = 150
         tableView.backgroundColor = UIColor.white.withAlphaComponent(0)
+        
     }
     
     private func defineLayoutForViews() {
@@ -102,17 +121,19 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
         
+        
+        
         nameLabel.autoPinEdge(.top, to: .top, of: scrollView, withOffset: 35)
         nameLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
         nameLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
         
-        getQuizButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
-        getQuizButton.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
-        getQuizButton.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
-        getQuizButton.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
-        getQuizButton.layer.cornerRadius = 25
+//        getQuizButton.autoPinEdge(toSuperviewSafeArea: .left, withInset: 20)
+//        getQuizButton.autoPinEdge(toSuperviewSafeArea: .right, withInset: 20)
+//        getQuizButton.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
+//        getQuizButton.contentEdgeInsets = UIEdgeInsets.init(top: 15, left: 25, bottom: 15, right: 25)
+//        getQuizButton.layer.cornerRadius = 25
         
-        funFactLabel.autoPinEdge(.top, to: .bottom, of: getQuizButton, withOffset: 35)
+        funFactLabel.autoPinEdge(.top, to: .bottom, of: nameLabel, withOffset: 35)
         funFactLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: 10)
         funFactLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: 10)
         
@@ -127,72 +148,68 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
         tableView.autoPinEdge(toSuperviewSafeArea: .left, withInset: 10)
     }
     
-    @objc func getQuizzes(sender: UIButton!) {
-        quizzes = NetworkService.singletonNetworkService.getQuizzes()
-        
-        let questions = self.quizzes.map {
-            $0.questions
-        }.flatMap({ (element: [Question]) -> [Question] in
-            return element
-        }).map {
-            $0.question
-        }.filter {
-            $0.contains("NBA")
-        }
-        self.categoryDict = [QuizCategory: [Quiz]]()
-        self.indexDict = [Int: QuizCategory]()
-        var numberOfQuizzes = 0
-        var i = 0
-        for quiz in self.quizzes {
-            numberOfQuizzes += 1
-            if !self.categoryDict.keys.contains(quiz.category) {
-                let tmp : [Quiz] = []
-                self.categoryDict[quiz.category] = tmp
-                self.indexDict[i] = quiz.category
-                i += 1
-            }
-            self.categoryDict[quiz.category]?.append(quiz)
-        }
-        
-        self.tableView.reloadData()
-        
-        self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
-        
-        self.funFactLabel.isHidden = false
-        self.funFactText.isHidden = false
-        self.tableView.isHidden = false
-    }
+//    @objc func getQuizzes(sender: UIButton!) {
+//        quizzes = NetworkService.singletonNetworkService.getQuizzes()
+//
+//        let questions = self.quizzes.map {
+//            $0.questions
+//        }.flatMap({ (element: [Question]) -> [Question] in
+//            return element
+//        }).map {
+//            $0.question
+//        }.filter {
+//            $0.contains("NBA")
+//        }
+//        self.categoryDict = [QuizCategory: [Quiz]]()
+//        self.indexDict = [Int: QuizCategory]()
+//        var numberOfQuizzes = 0
+//        var i = 0
+//        for quiz in self.quizzes {
+//            numberOfQuizzes += 1
+//            if !self.categoryDict.keys.contains(quiz.category) {
+//                let tmp : [Quiz] = []
+//                self.categoryDict[quiz.category] = tmp
+//                self.indexDict[i] = quiz.category
+//                i += 1
+//            }
+//            self.categoryDict[quiz.category]?.append(quiz)
+//        }
+//
+//        self.tableView.reloadData()
+//
+//        self.funFactText.text = "There are \(questions.count) questions that contain the word \"NBA\""
+//
+//
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return categoryDict.count
+        presenter.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let indexSection = indexDict[section] else {
-            return 0
-        }
-        guard let sectionDict = categoryDict[indexSection] else {
-            return 0
-        }
-        return sectionDict.count
+        presenter.numberOfRows(for: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let quizCategory = indexDict[indexPath.section]
-        let quiz = categoryDict[quizCategory!]![indexPath.row]
+        print("cellforrowat")
+        guard
+            let cell = tableView.dequeueReusableCell(
+            withIdentifier: cellIdentifier,
+            for: indexPath) as? CustomTableViewCell,
+            let viewModel = presenter.viewModelForIndexPath(indexPath)
+        else {
+            return UITableViewCell()
+        }
         
-        let cell = tableView.dequeueReusableCell(
-        withIdentifier: cellIdentifier,
-        for: indexPath) as! CustomTableViewCell// 4.
         
-        
-        cell.setMyValues(imageUrl: quiz.imageUrl, title: quiz.title, descriptionText: quiz.description, level: "\(quiz.level)")
+        //cell.setMyValues(imageUrl: quiz.imageUrl, title: quiz.title, descriptionText: quiz.description, level: "\(quiz.level)")
+        cell.set(viewModel: viewModel)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return indexDict[section].map { $0.rawValue }
+        presenter.titleForSection(section)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -204,13 +221,15 @@ class QuizzesViewController: SharedViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let quizCategory = indexDict[indexPath.section]
-        let quiz = categoryDict[quizCategory!]![indexPath.row]
-        let questions = quiz.questions
+        
+        let viewModel = presenter.viewModelForIndexPath(indexPath)
+        guard let questions = viewModel?.questions else { return }
         
         let userDefaults = UserDefaults.standard
-        userDefaults.setValue(quiz.id, forKey: "quiz_id")
+        userDefaults.setValue(viewModel?.id, forKey: "quiz_id")
         router.showQuizViewController(questions: questions)
     }
     
 }
+
+
