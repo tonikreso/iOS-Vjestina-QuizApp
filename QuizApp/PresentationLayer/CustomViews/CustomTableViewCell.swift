@@ -44,16 +44,10 @@ class CustomTableViewCell: UITableViewCell {
         contentView.addSubview(grade)
     }
     
-    func setMyValues(imageUrl: String, title: String, descriptionText: String, level: String) {
-        let tmpImage = UIImage(named: "football-strategy")
-        quizImage.image = tmpImage
-        quizDescription.text = descriptionText
-        headline.text = title
-        grade.text = level
-    }
+    
     
     func set(viewModel: QuizViewModel) {
-        quizImage.image = UIImage(named: "football-strategy")
+        quizImage.image = viewModel.image
         quizDescription.text = viewModel.description
         headline.text = viewModel.title
         grade.text = String(viewModel.level)

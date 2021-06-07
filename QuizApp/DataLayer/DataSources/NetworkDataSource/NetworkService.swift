@@ -83,6 +83,7 @@ class NetworkService {
         NetworkService().executeUrlRequest(request) { (result: Result<LoginResponse, RequestError>) in
             switch result {
             case.failure(let error):
+                print(error)
                 return
             case.sucess(let value):
                 let userDefaults = UserDefaults.standard
@@ -114,6 +115,7 @@ class NetworkService {
         NetworkService().executeUrlRequest(request) { (result: Result<PostResultResponse, RequestError>) in
             switch result {
             case.failure(let error):
+                print(error)
                 return
             case.sucess(let value):
                 print("result sent successfully \(value)")

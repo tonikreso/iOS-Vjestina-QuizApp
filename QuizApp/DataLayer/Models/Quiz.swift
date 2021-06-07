@@ -1,4 +1,7 @@
-struct Quiz: Codable {  
+import Foundation
+import UIKit
+
+struct Quiz: Codable {
     
     let id: Int
     let title: String
@@ -7,6 +10,7 @@ struct Quiz: Codable {
     let level: Int
     let imageUrl: String
     let questions: [Question]
+    var storedImageData: Data?
     
     enum CodingKeys: String, CodingKey{
         case id

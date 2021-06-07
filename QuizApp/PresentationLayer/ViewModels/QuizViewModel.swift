@@ -4,6 +4,7 @@
 //
 //  Created by Kompjuter on 30/05/2021.
 //
+import UIKit
 
 struct QuizViewModel {
     
@@ -14,6 +15,7 @@ struct QuizViewModel {
     let level: Int
     let imageUrl: String
     let questions: [Question]
+    var image: UIImage?
     
     init(_ quiz: Quiz) {
         self.id = quiz.id
@@ -23,5 +25,10 @@ struct QuizViewModel {
         self.level = quiz.level
         self.imageUrl = quiz.imageUrl
         self.questions = quiz.questions
+        if let storedImageData = quiz.storedImageData {
+            self.image = UIImage(data: storedImageData)
+        } else {
+            self.image = UIImage(named: "football-strategy")
+        }
     }
 }
